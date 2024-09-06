@@ -19,7 +19,8 @@ executable org-to-linked-md
     import:           warnings
     main-is:          Main.hs
     other-modules:
-      GetPaths
+      GetPaths,
+      ReadAndWrite
     -- other-extensions:
     build-depends:
       base ^>=4.18.2.1,
