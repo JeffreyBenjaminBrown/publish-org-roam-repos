@@ -18,8 +18,13 @@ common warnings
 executable org-to-linked-md
     import:           warnings
     main-is:          Main.hs
-    -- other-modules:
+    other-modules:
+      GetPaths
     -- other-extensions:
-    build-depends:    base ^>=4.18.2.1
+    build-depends:
+      base ^>=4.18.2.1,
+      directory,
+      filepath,
+      regex-tdfa
     hs-source-dirs:   app
     default-language: GHC2021
