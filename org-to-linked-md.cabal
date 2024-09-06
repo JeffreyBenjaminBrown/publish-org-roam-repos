@@ -25,6 +25,7 @@ executable org-to-linked-md
       base ^>=4.18.2.1,
       directory,
       filepath,
+      regex-compat,
       regex-tdfa
     hs-source-dirs:   app
     default-language: GHC2021

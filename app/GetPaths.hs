@@ -2,14 +2,8 @@ module GetPaths where
 
 import System.Directory (listDirectory, doesDirectoryExist)
 import System.FilePath ((</>))
-import Text.Regex.TDFA ((=~))
+import Text.Regex.TDFA ((=~)) -- todo ? This could be replaced with something from Text.Regex, which is nicer.
 
-
-sanitizeRelativePath :: String -> String
-sanitizeRelativePath path =
-  if (head path == '/')
-  then drop 1 path
-  else path
 
 -- | do; fs <- relFfilesAnyDepth ".hs" "."; mapM_ putStrLn fs
 relFfilesAnyDepth :: String -> FilePath -> IO [FilePath]
@@ -39,3 +33,9 @@ absFfilesAnyDepth
       if isDir
         then absFfilesAnyDepth extension path
         else return [path]
+
+sanitizeRelativePath :: String -> String
+sanitizeRelativePath path =
+  if (head path == '/')
+  then drop 1 path
+  else path
