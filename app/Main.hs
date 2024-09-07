@@ -6,6 +6,7 @@ import Analyze
 import GetPaths
 import ReadAndWrite
 import Text
+import Types
 
 
 thisProject :: FilePath

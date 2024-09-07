@@ -3,4 +3,9 @@
 :END:
 #+title: science
 * [[id:c35ab968-7056-40fa-8816-ea16d5c88f6d][a list of sciences]]
+  :PROPERTIES:
+  :ID:       55d5815d-51f8-47a7-ac21-a994222f202c
+  :END:
+** PITFALL: This PROPERTIES drawer is not part of the real file.
+   It helps me run tests for this code.
 * [[id:b9c7b7e6-9849-4a24-984d-b2e2e749d81a][methods and institutions for science and research]]

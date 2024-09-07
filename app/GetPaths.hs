@@ -5,11 +5,6 @@ import System.FilePath ((</>))
 import Text.Regex.TDFA ((=~)) -- todo ? This could be replaced with something from Text.Regex, which is nicer.
 
 
-data Repo = Repo {
-  name  ::  String,
-  root  ::  String,
-  files :: [String] }
-
 -- | do; fs <- relFfilesAnyDepth ".hs" "."; mapM_ putStrLn fs
 relFfilesAnyDepth :: String -> FilePath -> IO [FilePath]
 relFfilesAnyDepth extension dir =
