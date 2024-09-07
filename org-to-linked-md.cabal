@@ -19,6 +19,7 @@ executable org-to-linked-md
     import:           warnings
     main-is:          Main.hs
     other-modules:
+      Analyze,
       GetPaths,
       Text,
       ReadAndWrite,

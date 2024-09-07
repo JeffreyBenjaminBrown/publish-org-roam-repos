@@ -2,6 +2,11 @@ module Main where
 
 import System.Directory (listDirectory)
 
+import Analyze
+import GetPaths
+import ReadAndWrite
+import Text
+
 
 thisProject :: FilePath
 thisProject = "/home/jeff/org-roam/org-to-linked-md"
