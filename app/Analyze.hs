@@ -7,10 +7,16 @@ import           Text.Regex
 
 analyze_science :: IO ()
 analyze_science = do
-  content <- map is_properties . lines
-             <$> readFile "data/science.org"
-  mapM_ (putStrLn . show) content
+  file <- readFile "data/science.org"
+  putStrLn "=== properties ==="
+  mapM_ (putStrLn . show . is_properties) $ lines file
+  putStrLn "=== ids ==="
+  mapM_ (putStrLn . show . is_id)         $ lines file
 
 is_properties :: String -> Bool
 is_properties =
   isJust . matchRegex (mkRegex "^ *:PROPERTIES: *$")
+
+is_id :: String -> Maybe String
+is_id s = head <$> matchRegex regex s
+  where regex = mkRegex "^ *:ID: *([0-9a-f-]+) *$"

@@ -1,0 +1,21 @@
+* Should it produce .md, or .org?
+** org would be more natural
+   Since Github has canned ways of showing org,
+   keeping it as org would mean skipping a lot of translation steps.
+* If producing .md, find a canned org-to-md conversion routine
+  If it exists, it's probably easier to modify that
+  than to start from scratch.
+* research links to headings
+** What is the format?
+** Can it be done in a .org file on Github?
+** Should I create a new ID, one that definitely works,
+   for each linked heading?
+* research Github URL formats
+* worry about leading # symbols, and others
+** motivation
+   In .org files, lines that start with # in Github will not render.
+   If generating Markdown, they will be different,
+   but present similar issues.
+** what to research
+   What happens to lines that start with #? *? -? +?
+   If there's leading space before them?
