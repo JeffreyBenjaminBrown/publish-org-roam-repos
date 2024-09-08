@@ -23,6 +23,7 @@ executable org-to-linked-md
       GetPaths,
       ReadAndWrite,
       Test,
+      Tests.Analyze,
       Text,
       Types,
     -- other-extensions:
