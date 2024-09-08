@@ -1,23 +1,36 @@
-* On Github, links to .org headers work like links to .md headers!
-** They look like `URL#text-of-the-header`.
-** I haven't tested edge cases.
-   Weird punctuation, capitalization, space, etc.
-** the procedure ChatGPT described
-*** initially
-Here’s how you can do it:
+* build the index
+  For each file in each repo:
+  Find all the IDs in it.
+  If any of those is associated with a particular header,
+  find the header,
+  and determine how Github will represent its anchor.
+* rewrite links
+#+BEGIN_SRC text
+  They look like this:
+    [[id:4274ee9a-8b13-4763-9719-f32dd7efbcea][Switzerland trip]]
+  They should (probably) look like this:
+    [[URL][text]]
+#+END_SRC
+** On Github, links to .org headers work like links to .md headers!
+*** They look like `URL#text-of-the-header`.
+*** I haven't tested edge cases.
+    Weird punctuation, capitalization, space, etc.
+*** the procedure ChatGPT described
+**** initially
+ Here’s how you can do it:
 
-    Find or create the sub-header: Each header in an .org file has an automatically generated anchor, which is based on the text of the header.
+     Find or create the sub-header: Each header in an .org file has an automatically generated anchor, which is based on the text of the header.
 
-    Format the anchor:
-        Lowercase all the characters.
-        Replace spaces and special characters (such as ?, !, @) with dashes (-).
-        Remove any punctuation like periods, commas, colons, etc.
+     Format the anchor:
+         Lowercase all the characters.
+         Replace spaces and special characters (such as ?, !, @) with dashes (-).
+         Remove any punctuation like periods, commas, colons, etc.
 
-    Create the link: Use a relative link to the .org file followed by the anchor, prefixed by a #.
-** duplicate headers => "-n" suffixes, starting from 1
-*** ChatGPT explains
-If two headers in the same .org file have the same text, GitHub generates unique anchors for each by appending incremental numbers to the duplicate anchors. The first occurrence of the header will have a standard anchor based on the header text, while subsequent occurrences of headers with the same text will have -1, -2, etc., appended to their anchors.
-*** It's true (I tested).
+     Create the link: Use a relative link to the .org file followed by the anchor, prefixed by a #.
+*** duplicate headers => "-n" suffixes, starting from 1
+**** ChatGPT explains
+ If two headers in the same .org file have the same text, GitHub generates unique anchors for each by appending incremental numbers to the duplicate anchors. The first occurrence of the header will have a standard anchor based on the header text, while subsequent occurrences of headers with the same text will have -1, -2, etc., appended to their anchors.
+**** It's true (I tested).
 * think about leading # symbols, and others
 ** motivation
    In .org files, lines that start with # in Github will not render.
