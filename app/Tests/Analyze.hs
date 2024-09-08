@@ -8,6 +8,7 @@ import Analyze
 allTests :: Test
 allTests = TestList
   [ test_is_properties
+  , test_id_if_id
   ]
 
 test_is_properties :: Test
@@ -17,3 +18,8 @@ test_is_properties = TestCase $ do
   assertBool "" $ not $ is_properties "hey :PROPERTIES:    "
   assertBool "" $ not $ is_properties "    :PROPERTIES: hey"
   assertBool "" $ not $ is_properties ":PATTIES:"
+
+test_id_if_id :: Test
+test_id_if_id = TestCase $ do
+  assertBool "" $ id_if_id "  :ID: 123  " == Just "123"
+  assertBool "" $ id_if_id "  123  :ID:  " == Nothing
