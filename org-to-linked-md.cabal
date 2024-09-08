@@ -22,10 +22,12 @@ executable org-to-linked-md
       Analyze,
       GetPaths,
       ReadAndWrite,
+      Test,
       Text,
       Types,
     -- other-extensions:
     build-depends:
+      HUnit,
       base ^>=4.18.2.1,
       directory,
       filepath,
