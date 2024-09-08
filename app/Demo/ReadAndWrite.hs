@@ -1,7 +1,5 @@
 module ReadAndWrite where
 
-import System.IO (readFile)
-
 
 readFile_andProveIt :: IO ()
 readFile_andProveIt = do

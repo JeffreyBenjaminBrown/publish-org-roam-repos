@@ -4,9 +4,7 @@ import System.Directory (listDirectory)
 
 import Analyze
 import GetPaths
-import ReadAndWrite
 import Test
-import Text
 import Types
 
 

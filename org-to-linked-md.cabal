@@ -21,11 +21,10 @@ executable org-to-linked-md
     other-modules:
       Analyze,
       GetPaths,
-      ReadAndWrite,
       Test,
       Tests.Analyze,
-      Text,
       Types,
+      Util,
     -- other-extensions:
     build-depends:
       HUnit,

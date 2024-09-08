@@ -1,23 +1,10 @@
 module Analyze where
 
 import           Data.Maybe
-import qualified Data.Text as T
 import           Text.Regex
 
 import Types
 
-
-analyze_science_file :: IO ()
-analyze_science_file = do
-  file <- lines <$> readFile "data/science.org"
-  putStrLn "=== properties ==="
-  mapM_ (putStrLn . show . is_properties) $ file
-  putStrLn "=== ids ==="
-  mapM_ (putStrLn . show . id_if_id)      $ file
-  let Just titleLine = countTitleLine file
-  putStrLn $ "=== titleLine: " ++ show titleLine
-  putStrLn "=== linesOfIds ==="
-  mapM_ (putStrLn . show) $ linesOfIds titleLine file
 
 is_properties :: String -> Bool
 is_properties =
@@ -31,8 +18,8 @@ is_title :: String -> Bool
 is_title = isJust . matchRegex (mkRegex "^ *#\\+title:")
 
 countTitleLine :: [String] -> Maybe Int
-countTitleLine lines =
-  go 1 lines
+countTitleLine file =
+  go 1 file
   where go :: Int -> [String] -> Maybe Int
         go _ [] = Nothing
         go i (line:more) = if is_title line
@@ -47,6 +34,8 @@ linesOfIds titleLine file = let
     (s, if i > titleLine
         then Just i    -- the URI is for a heading *within* the file
         else Nothing ) -- the URI is for the *entire* file
+  fromJust_and_maybeInt _ =
+    undefined -- no other pattern for the _ should be possible
   in map fromJust_and_maybeInt
      $ filter (isJust . fst)
      $ zip (map id_if_id $ file) [1..]
