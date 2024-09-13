@@ -4,6 +4,7 @@ import           Data.Maybe
 import           Text.Regex
 
 import Types
+import Util (strip)
 
 
 headline_to_anchor :: String -> String
@@ -20,6 +21,10 @@ headline_to_anchor = let
   in map (\c -> if is_alphanum c
                 then c else '-')
      . filter (not . disappears)
+
+header_if_header :: String -> Maybe String
+header_if_header s = strip . head <$> matchRegex regex s
+  where regex = mkRegex "^\\*+ (.*)$"
 
 is_properties_line :: String -> Bool
 is_properties_line =

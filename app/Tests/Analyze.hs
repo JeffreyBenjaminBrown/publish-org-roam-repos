@@ -13,7 +13,14 @@ allTests = TestList
   , test_id_if_reference
   , test_is_title
   , test_countTitleLine
+  , test_header_if_header
   ]
+
+test_header_if_header :: Test
+test_header_if_header = TestCase $ do
+  assertBool "" $ header_if_header "* a" == Just "a"
+  assertBool "" $ header_if_header " * a" == Nothing
+  assertBool "" $ header_if_header "** bab " == Just "bab"
 
 test_headline_to_anchor :: Test
 test_headline_to_anchor = TestCase $ do
