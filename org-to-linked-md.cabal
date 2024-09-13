@@ -20,9 +20,11 @@ executable org-to-linked-md
     main-is:          Main.hs
     other-modules:
       Analyze,
+      Analyze.OneLine,
       GetPaths,
       Test,
       Tests.Analyze,
+      Tests.Analyze.OneLine,
       Types,
       Util,
     -- other-extensions:
