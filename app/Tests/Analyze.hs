@@ -60,7 +60,8 @@ test_linesOfIds = TestCase $ do
         , "  :END:"
         , "* even more text"
         , "** lalala" ]
-      Just titleLine = countTitleLine file
+      titleLine :: Int = maybe (-1) id $ countTitleLine file
+  assertBool "" $ titleLine == 4
   assertBool "" $ linesOfIds titleLine file
     == [ ("111", Nothing),
          ("222", Just 10) ]
