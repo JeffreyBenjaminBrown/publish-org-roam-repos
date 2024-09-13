@@ -8,12 +8,15 @@
   find the header,
   and determine how Github will represent its anchor.
 * rewrite links
+** syntax
 #+BEGIN_SRC text
   They look like this:
     [[id:4274ee9a-8b13-4763-9719-f32dd7efbcea][Switzerland trip]]
   They should (probably) look like this:
     [[URL][text]]
 #+END_SRC
+** must replace every match *within line* or even *across lines*
+   Really I need a parser.
 ** On Github, links to .org headers work like links to .md headers!
 *** They look like `URL#text-of-the-header`.
 *** I haven't tested edge cases.

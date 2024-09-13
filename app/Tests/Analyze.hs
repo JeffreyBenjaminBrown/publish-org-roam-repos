@@ -10,6 +10,7 @@ allTests = TestList
   [ test_headline_to_anchor
   , test_is_properties
   , test_id_if_id
+  , test_id_if_reference
   , test_is_title
   , test_countTitleLine
   ]
@@ -31,6 +32,13 @@ test_id_if_id :: Test
 test_id_if_id = TestCase $ do
   assertBool "" $ id_if_id "  :ID: 123  " == Just "123"
   assertBool "" $ id_if_id "  123  :ID:  " == Nothing
+
+test_id_if_reference :: Test
+test_id_if_reference = TestCase $ do
+  assertBool "" $ id_if_reference "  :ID: 123  "
+    == Nothing
+  assertBool "" $ id_if_reference "[[id:a1][something]]"
+    == Just "a1"
 
 test_is_title :: Test
 test_is_title = TestCase $ do
