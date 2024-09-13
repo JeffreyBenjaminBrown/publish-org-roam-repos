@@ -1,3 +1,6 @@
+* test headline_to_anchor using Github
+  Try `data/anchors_test.org`.
+  Maybe add cases to Tests.Analyze for each heading.
 * build the index
   For each file in each repo:
   Find all the IDs in it.

@@ -7,11 +7,17 @@ import Analyze
 
 allTests :: Test
 allTests = TestList
-  [ test_is_properties
+  [ test_headline_to_anchor
+  , test_is_properties
   , test_id_if_id
   , test_is_title
   , test_countTitleLine
   ]
+
+test_headline_to_anchor :: Test
+test_headline_to_anchor = TestCase $ do
+  assertBool "" $ headline_to_anchor ",ab." == "ab"
+  assertBool "TODO: More headline_to_anchor cases" False
 
 test_is_properties :: Test
 test_is_properties = TestCase $ do
