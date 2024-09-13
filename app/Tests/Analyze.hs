@@ -8,7 +8,7 @@ import Analyze
 allTests :: Test
 allTests = TestList
   [ test_headline_to_anchor
-  , test_is_properties
+  , test_is_properties_line
   , test_id_if_id
   , test_id_if_reference
   , test_is_title
@@ -20,13 +20,13 @@ test_headline_to_anchor = TestCase $ do
   assertBool "" $ headline_to_anchor ",ab." == "ab"
   assertBool "TODO: More headline_to_anchor cases" False
 
-test_is_properties :: Test
-test_is_properties = TestCase $ do
-  assertBool "" $       is_properties ":PROPERTIES:"
-  assertBool "" $       is_properties "    :PROPERTIES:    "
-  assertBool "" $ not $ is_properties "hey :PROPERTIES:    "
-  assertBool "" $ not $ is_properties "    :PROPERTIES: hey"
-  assertBool "" $ not $ is_properties ":PATTIES:"
+test_is_properties_line :: Test
+test_is_properties_line = TestCase $ do
+  assertBool "" $       is_properties_line ":PROPERTIES:"
+  assertBool "" $       is_properties_line "    :PROPERTIES:    "
+  assertBool "" $ not $ is_properties_line "hey :PROPERTIES:    "
+  assertBool "" $ not $ is_properties_line "    :PROPERTIES: hey"
+  assertBool "" $ not $ is_properties_line ":PATTIES:"
 
 test_id_if_id :: Test
 test_id_if_id = TestCase $ do

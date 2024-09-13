@@ -21,8 +21,8 @@ headline_to_anchor = let
                 then c else '-')
      . filter (not . disappears)
 
-is_properties :: String -> Bool
-is_properties =
+is_properties_line :: String -> Bool
+is_properties_line =
   isJust . matchRegex (mkRegex "^ *:PROPERTIES: *$")
 
 -- | This identifies the passage wherein an ID identifies a header.
