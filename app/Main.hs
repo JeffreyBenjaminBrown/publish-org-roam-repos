@@ -1,9 +1,26 @@
+{-# OPTIONS_GHC -Wno-unused-imports #-}
+
 module Main where
 
 import System.Directory (listDirectory)
 
+
+-- All the external imports used anywhere in this repo.
+-- To update, run this at the command line:
+--   grep -oP '^import *\s+\K[A-Z][A-Za-z_\.]*' -r . | grep ":.*" -o | sort | uniq
+import Text.Megaparsec
+import Text.Megaparsec.Char
+import Data.Void
+import Data.Char (isSpace)
+import Data.Maybe
+import Text.Regex
+import System.Directory (listDirectory, doesDirectoryExist)
+import System.FilePath ((</>))
+import Text.Regex.TDFA ((=~))
+
 import Analyze
 import GetPaths
+import GPT
 import Test
 import Types
 

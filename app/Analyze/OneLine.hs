@@ -6,7 +6,6 @@ module Analyze.OneLine where
 import           Data.Maybe
 import           Text.Regex
 
-import Types
 import Util (strip)
 
 

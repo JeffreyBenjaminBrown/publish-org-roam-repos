@@ -1,11 +1,9 @@
 module Analyze where
 
-import           Data.Maybe
-import           Text.Regex
+import Data.Maybe
 
 import Analyze.OneLine
 import Types
-import Util (strip)
 
 
 countTitleLine :: [String] -> Maybe Int
