@@ -1,7 +1,18 @@
+* parsing
+** I think I want to use sepBy
+   This will run `itemParser` a lot,
+   separated by newlines,
+   optionally ending in a newlline.
+
+   sepBy itemParser newline <* optional newline
 * test headline_to_anchor using Github
   Try `data/anchors_test.org`.
   Maybe add cases to Tests.Analyze for each heading.
   Consider the case of a link in the heading.
+* ? consider linking just to line numbers
+  This won't be robust to changes in individual files --
+  I'll have to regenerate the whole repo.
+  But it would be easier.
 * ONGOING build the index
   For each file in each repo:
   Find all the IDs in it.

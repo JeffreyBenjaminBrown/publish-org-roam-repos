@@ -5,6 +5,17 @@ module Types where
 
 type URI = String
 
+data LineContent = LineContent_text String
+                 | LineContent_link URI String
+  deriving (Show, Eq)
+
+data Line = PropertiesStart
+          | PropertiesEnd
+          | Title String
+          | Heading Int String
+          | Body        String
+  deriving (Show, Eq)
+
 
 -- * Not in use
 

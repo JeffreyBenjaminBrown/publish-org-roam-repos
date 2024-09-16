@@ -7,28 +7,44 @@ import           Data.Void
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
 
+import Types
 
-type URI = String
-
-data PartOfLine = PartOfLine String
-                | Link URI String
-
-data Line = Properties
-          | End
-          | Title String
-          | Heading Int String
-          | Body String
-  deriving (Show, Eq)
 
 type Parser = Parsec Void String
 
-propertiesParser :: Parser Line
-propertiesParser =
-  string ":PROPERTIES:" >> optional newline >> return Properties
 
-endParser :: Parser Line
-endParser =
-  string ":END:" >> optional newline >> return End
+linkParser :: Parser LineContent
+linkParser = do
+  _    <- string "[[:id:"
+  uri  <- manyTill anySingle (char ']')
+  _    <- char '['
+  name <- manyTill anySingle $ string "]]"
+  return $ LineContent_link uri name
+
+textParser :: Parser LineContent
+textParser = do
+  text <- manyTill anySingle $ lookAhead $
+          choice [ newline           >> return ()
+                 , lineContentParser >> return ()
+                 , eof               >> return () ]
+  return $ LineContent_text text
+
+lineContentParser :: Parser [LineContent]
+lineContentParser =
+  manyTill (try linkParser <|> textParser)
+  $ choice [ optional newline >> return ()
+           , eof              >> return () ]
+
+
+-- * Each line in the file is one of these.
+
+propertiesStartParser :: Parser Line
+propertiesStartParser = string ":PROPERTIES:" >> optional newline
+                        >> return PropertiesStart
+
+propertiesEndParser :: Parser Line
+propertiesEndParser = string ":END:" >> optional newline
+                      >> return PropertiesEnd
 
 titleParser :: Parser Line
 titleParser = string "#+title:" >> space >>
@@ -49,11 +65,11 @@ bodyParser = do
   return $ Body (T.unpack $ T.stripEnd $ T.pack line)
 
 lineParser :: Parser Line
-lineParser = try propertiesParser
-             <|> try endParser
-             <|> try titleParser
-             <|> try headingParser
-             <|> bodyParser
+lineParser = choice [ try propertiesStartParser
+                    , try propertiesEndParser
+                    , try titleParser
+                    , try headingParser
+                    , bodyParser ]
 
 parseLines :: String -> Either (ParseErrorBundle String Void) [Line]
 parseLines input = parse (many lineParser) "" input
