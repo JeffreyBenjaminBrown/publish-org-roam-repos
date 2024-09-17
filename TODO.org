@@ -1,12 +1,3 @@
-* parsing
-** use sepBy;
-   Don't include terminator characters like \n
-   in the parsers for things separated by them.
-   This will run `itemParser` a lot,
-   separated by newlines,
-   optionally ending in a newlline.
-
-   sepBy itemParser newline <* optional newline
 * test headline_to_anchor using Github
   Try `data/anchors_test.org`.
   Maybe add cases to Tests.Analyze for each heading.
@@ -15,7 +6,7 @@
   This won't be robust to changes in individual files --
   I'll have to regenerate the whole repo.
   But it would be easier.
-* ONGOING build the index
+* build the index
   For each file in each repo:
   Find all the IDs in it.
   If any of those is associated with a particular header,

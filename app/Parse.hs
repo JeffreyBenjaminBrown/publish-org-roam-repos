@@ -23,19 +23,18 @@ linkParser = do
   _    <- string "]]"
   return $ OrdinaryText_link uri name
 
-textParser :: Parser OrdinaryText
-textParser = do
-  text <- manyTill anySingle $ lookAhead $
-          choice [ newline           >> return ()
-                 , lineContentParser >> return ()
-                 , eof               >> return () ]
-  return $ OrdinaryText_text text
+ordinaryTextParser :: Parser OrdinaryText
+ordinaryTextParser = OrdinaryText_text <$>
+  some ( notFollowedBy -- TODO: Understand `notFollowedBy`.
+         linkParser
+         >> anySingleBut '\n')
 
 
 -- * Each line in the file is one of these.
 
 lineContentParser :: Parser [OrdinaryText]
-lineContentParser = many (try textParser <|> linkParser)
+lineContentParser = many ( try ordinaryTextParser
+                           <|> linkParser )
 
 propertiesStartParser :: Parser Line
 propertiesStartParser = string ":PROPERTIES:"

@@ -13,7 +13,9 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_lineContentParser
+  [ test_linkParser
+  , test_ordinaryTextParser
+  , test_lineContentParser
   , test_propertiesStartParser
   , test_propertiesEndParser
   , test_titleParser
@@ -21,9 +23,23 @@ allTests = TestList
   , test_bodyParser
   ]
 
+test_linkParser :: Test
+test_linkParser = TestCase $ do
+  assertBool "" $ parse linkParser "" "[[:id:1][hello]]"
+    == Right (OrdinaryText_link "1" "hello")
+
+test_ordinaryTextParser :: Test
+test_ordinaryTextParser = TestCase $ do
+  assertBool "" $ parse ordinaryTextParser "" "abc"
+    == Right (OrdinaryText_text "abc")
+
 test_lineContentParser :: Test
 test_lineContentParser = TestCase $ do
-  assertBool "TODO: test_lineContentParser" False
+  assertBool "" $ parse lineContentParser ""
+    "word [[:id:some-id][some link text]] later words"
+    == Right [ OrdinaryText_text "word "
+             , OrdinaryText_link "some-id" "some link text"
+             , OrdinaryText_text " later words" ]
 
 test_propertiesStartParser :: Test
 test_propertiesStartParser = TestCase $ do
