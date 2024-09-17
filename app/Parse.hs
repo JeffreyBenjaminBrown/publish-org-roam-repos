@@ -2,13 +2,12 @@
 
 module Parse where
 
-import qualified Data.Text as T
 import           Data.Void
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
 
+import Util (strip)
 import Types
-
 
 type Parser = Parsec Void String
 
@@ -47,13 +46,13 @@ propertiesEndParser = string ":END:" >> optional newline
                       >> return PropertiesEnd
 
 titleParser :: Parser Line
-titleParser = string "#+title:" >> space >>
-              Title <$> manyTill anySingle newline
+titleParser = string "#+title:" >>
+              Title <$> many (anySingleBut '\n')
 
 headingParser :: Parser Line
 headingParser = do
   numAsterisks <- some (char '*')
-  char ' '
+  _ <- char ' '
   rest <- many (anySingleBut '\n')
   return $ Heading (length numAsterisks) rest
 
