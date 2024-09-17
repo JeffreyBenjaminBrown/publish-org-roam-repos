@@ -15,6 +15,7 @@ import Types
 allTests :: Test
 allTests = TestList
   [ test_bodyParser
+  , test_headingParser
   ]
 
 test_bodyParser :: Test
@@ -27,3 +28,8 @@ test_bodyParser = TestCase $ do
         parse bodies "" input == goal
   go "a\nb"   $ Right [Body "a",Body "b"]
   go "a\nb\n" $ Right [Body "a",Body "b",Body ""]
+
+test_headingParser :: Test
+test_headingParser = TestCase $ do
+  assertBool "" $ parse headingParser ""
+    "** a" == Right (Heading 2 "a")

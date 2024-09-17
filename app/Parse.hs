@@ -50,14 +50,12 @@ titleParser :: Parser Line
 titleParser = string "#+title:" >> space >>
               Title <$> manyTill anySingle newline
 
--- | PITFALL: Eats some whitespace.
 headingParser :: Parser Line
 headingParser = do
   numAsterisks <- some (char '*')
-  space
-  rest <- manyTill anySingle newline
-  return ( Heading (length numAsterisks)
-           $ T.unpack $ T.stripEnd $ T.pack rest )
+  char ' '
+  rest <- many (anySingleBut '\n')
+  return $ Heading (length numAsterisks) rest
 
 bodyParser :: Parser Line
 bodyParser = Body <$> many (anySingleBut '\n')
