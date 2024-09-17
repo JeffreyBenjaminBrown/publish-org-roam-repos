@@ -6,7 +6,6 @@ import           Data.Void
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
 
-import Util (strip)
 import Types
 
 type Parser = Parsec Void String
@@ -38,11 +37,11 @@ lineContentParser =
 -- * Each line in the file is one of these.
 
 propertiesStartParser :: Parser Line
-propertiesStartParser = string ":PROPERTIES:" >> optional newline
+propertiesStartParser = string ":PROPERTIES:"
                         >> return PropertiesStart
 
 propertiesEndParser :: Parser Line
-propertiesEndParser = string ":END:" >> optional newline
+propertiesEndParser = string ":END:"
                       >> return PropertiesEnd
 
 titleParser :: Parser Line

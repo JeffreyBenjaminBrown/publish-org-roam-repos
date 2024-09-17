@@ -13,11 +13,22 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [
-    test_titleParser
+  [ test_propertiesStartParser
+  , test_propertiesEndParser
+  , test_titleParser
   , test_headingParser
   , test_bodyParser
   ]
+
+test_propertiesStartParser :: Test
+test_propertiesStartParser = TestCase $ do
+  assertBool "" $ parse propertiesStartParser ""
+    ":PROPERTIES:" == Right PropertiesStart
+
+test_propertiesEndParser :: Test
+test_propertiesEndParser = TestCase $ do
+  assertBool "" $ parse propertiesEndParser ""
+    ":END:" == Right PropertiesEnd
 
 test_titleParser :: Test
 test_titleParser = TestCase $ do
