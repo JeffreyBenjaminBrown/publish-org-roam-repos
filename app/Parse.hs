@@ -8,33 +8,34 @@ import           Text.Megaparsec.Char
 
 import Types
 
+
 type Parser = Parsec Void String
 
 
-linkParser :: Parser LineContent
+-- * Parsers for within header or body text
+
+linkParser :: Parser OrdinaryText
 linkParser = do
   _    <- string "[[:id:"
-  uri  <- manyTill anySingle (char ']')
-  _    <- char '['
-  name <- manyTill anySingle $ string "]]"
-  return $ LineContent_link uri name
+  uri  <- many $ anySingleBut ']'
+  _    <- string "]["
+  name <- many $ anySingleBut ']'
+  _    <- string "]]"
+  return $ OrdinaryText_link uri name
 
-textParser :: Parser LineContent
+textParser :: Parser OrdinaryText
 textParser = do
   text <- manyTill anySingle $ lookAhead $
           choice [ newline           >> return ()
                  , lineContentParser >> return ()
                  , eof               >> return () ]
-  return $ LineContent_text text
-
-lineContentParser :: Parser [LineContent]
-lineContentParser =
-  manyTill (try linkParser <|> textParser)
-  $ choice [ optional newline >> return ()
-           , eof              >> return () ]
+  return $ OrdinaryText_text text
 
 
 -- * Each line in the file is one of these.
+
+lineContentParser :: Parser [OrdinaryText]
+lineContentParser = many (try textParser <|> linkParser)
 
 propertiesStartParser :: Parser Line
 propertiesStartParser = string ":PROPERTIES:"

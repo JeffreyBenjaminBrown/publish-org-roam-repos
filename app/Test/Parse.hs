@@ -13,12 +13,17 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_propertiesStartParser
+  [ test_lineContentParser
+  , test_propertiesStartParser
   , test_propertiesEndParser
   , test_titleParser
   , test_headingParser
   , test_bodyParser
   ]
+
+test_lineContentParser :: Test
+test_lineContentParser = TestCase $ do
+  assertBool "TODO: test_lineContentParser" False
 
 test_propertiesStartParser :: Test
 test_propertiesStartParser = TestCase $ do

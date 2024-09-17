@@ -5,8 +5,8 @@ module Types where
 
 type URI = String
 
-data LineContent = LineContent_text String
-                 | LineContent_link URI String
+data OrdinaryText = OrdinaryText_text String
+                  | OrdinaryText_link URI String
   deriving (Show, Eq)
 
 data Line = PropertiesStart
