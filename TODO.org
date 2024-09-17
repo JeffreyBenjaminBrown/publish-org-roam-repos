@@ -1,5 +1,7 @@
 * parsing
-** I think I want to use sepBy
+** use sepBy;
+   Don't include terminator characters like \n
+   in the parsers for things separated by them.
    This will run `itemParser` a lot,
    separated by newlines,
    optionally ending in a newlline.

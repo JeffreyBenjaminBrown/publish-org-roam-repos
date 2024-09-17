@@ -19,5 +19,11 @@ allTests = TestList
 
 test_bodyParser :: Test
 test_bodyParser = TestCase $ do
-  assertBool "" $ parse (sepBy bodyParser newline)
-    "" "a\nb" == Right [Body "a",Body "b"]
+  let bodies = sepBy bodyParser newline
+      go :: String
+         -> Either (ParseErrorBundle String Void) [Line]
+         -> Assertion
+      go input goal = assertBool "" $
+        parse bodies "" input == goal
+  go "a\nb"   $ Right [Body "a",Body "b"]
+  go "a\nb\n" $ Right [Body "a",Body "b",Body ""]
