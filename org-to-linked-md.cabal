@@ -25,8 +25,9 @@ executable org-to-linked-md
       GPT,
       Parse,
       Test,
-      Tests.Analyze,
-      Tests.Analyze.OneLine,
+      Test.Analyze,
+      Test.Analyze.OneLine,
+      Test.Parse,
       Types,
       Util,
     -- other-extensions:

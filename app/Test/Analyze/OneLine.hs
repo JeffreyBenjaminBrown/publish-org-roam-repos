@@ -1,4 +1,4 @@
-module Tests.Analyze.OneLine where
+module Test.Analyze.OneLine where
 
 import Test.HUnit
 

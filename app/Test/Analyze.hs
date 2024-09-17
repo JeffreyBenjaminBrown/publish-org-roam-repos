@@ -1,4 +1,4 @@
-module Tests.Analyze where
+module Test.Analyze where
 
 import Test.HUnit
 
