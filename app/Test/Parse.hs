@@ -19,5 +19,5 @@ allTests = TestList
 
 test_bodyParser :: Test
 test_bodyParser = TestCase $ do
-  assertBool "" $ parse (many bodyParser) ""
-    "a\nb\n" == Right [Body "a",Body "b"]
+  assertBool "" $ parse (sepBy bodyParser newline)
+    "" "a\nb" == Right [Body "a",Body "b"]

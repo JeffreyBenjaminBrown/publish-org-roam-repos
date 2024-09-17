@@ -60,9 +60,7 @@ headingParser = do
            $ T.unpack $ T.stripEnd $ T.pack rest )
 
 bodyParser :: Parser Line
-bodyParser = do
-  line <- manyTill anySingle newline
-  return $ Body (T.unpack $ T.stripEnd $ T.pack line)
+bodyParser = Body <$> many (anySingleBut '\n')
 
 lineParser :: Parser Line
 lineParser = choice [ try propertiesStartParser
@@ -71,5 +69,6 @@ lineParser = choice [ try propertiesStartParser
                     , try headingParser
                     , bodyParser ]
 
-parseLines :: String -> Either (ParseErrorBundle String Void) [Line]
+parseLines :: String ->
+  Either (ParseErrorBundle String Void) [Line]
 parseLines input = parse (many lineParser) "" input
