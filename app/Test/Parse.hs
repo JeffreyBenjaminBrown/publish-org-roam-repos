@@ -22,6 +22,7 @@ allTests = TestList
   , test_titleParser
   , test_headingParser
   , test_bodyParser
+  , test_parseFile
   ]
 
 test_linkParser :: Test
@@ -77,3 +78,7 @@ test_headingParser :: Test
 test_headingParser = TestCase $ do
   assertBool "" $ parse headingParser ""
     "** a" == Right (Heading 2 "a")
+
+test_parseFile :: Test
+test_parseFile = TestCase $ do
+  assertBool "TODO: use data/tiny_test.org" False
