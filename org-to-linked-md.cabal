@@ -19,15 +19,13 @@ executable org-to-linked-md
     import:           warnings
     main-is:          Main.hs
     other-modules:
-      Analyze,
-      Analyze.OneLine,
       GetPaths,
       GPT,
+      Headline,
       Index,
       Parse,
       Test,
-      Test.Analyze,
-      Test.Analyze.OneLine,
+      Test.Index,
       Test.Parse,
       Types,
       Util,

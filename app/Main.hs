@@ -18,7 +18,6 @@ import System.Directory (listDirectory, doesDirectoryExist)
 import System.FilePath ((</>))
 import Text.Regex.TDFA ((=~))
 
-import Analyze
 import GetPaths
 import GPT
 import Index
