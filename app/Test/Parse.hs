@@ -88,4 +88,5 @@ test_parseFile = TestCase $ do
     , (7, Line_PropsStart)
     , (8, Line_Id "2")
     , (9, Line_PropsEnd)
-    , (10, Line_Body [NormalText_text "   With some text."] ) ]
+    , (10, Line_Body [NormalText_text "   With some text."] )
+    , (11, Line_Body []) ]
