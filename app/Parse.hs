@@ -55,11 +55,11 @@ headingParser :: Parser Line
 headingParser = do
   numAsterisks <- some (char '*')
   _ <- char ' '
-  rest <- many (anySingleBut '\n')
+  rest <- lineContentParser
   return $ Line_Heading (length numAsterisks) rest
 
 bodyParser :: Parser Line
-bodyParser = Line_Body <$> many (anySingleBut '\n')
+bodyParser = Line_Body <$> lineContentParser
 
 lineParser :: Parser Line
 lineParser = choice [ try propertiesStartParser
@@ -73,4 +73,5 @@ parseFile :: FilePath -> IO ( Either
                                [(LineNumber, Line)] )
 parseFile filename = do
   input <- readFile filename
-  return $ zip [1..] <$> parse (many lineParser) filename input
+  return $ zip [1..] <$> ( parse (sepBy lineParser newline)
+                           filename input )

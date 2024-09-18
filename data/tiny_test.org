@@ -3,8 +3,8 @@
 :END:
 #+title: tiny test file
 * A link to [[id:1][this file]] and a link to [[id:2][the heading below]].
-* an imaginary header
-  :PROPERTIES:
-  :ID:       2
-  :END:
-  With some text.
+** an imaginary header
+   :PROPERTIES:
+   :ID:       2
+   :END:
+   With some text.

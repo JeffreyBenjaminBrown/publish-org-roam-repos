@@ -15,8 +15,8 @@ data Line = Line_PropsStart
           | Line_PropsEnd
           | Line_Id String
           | Line_Title String
-          | Line_Heading Int String
-          | Line_Body        String
+          | Line_Heading Int [OrdinaryText]
+          | Line_Body        [OrdinaryText]
   deriving (Show, Eq)
 
 

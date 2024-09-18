@@ -21,7 +21,7 @@ allTests = TestList
   , test_idParser
   , test_titleParser
   , test_headingParser
-  , test_bodyParser
+  -- , test_bodyParser -- too trivial to test.
   , test_parseFile
   ]
 
@@ -55,7 +55,8 @@ test_propertiesEndParser = TestCase $ do
 
 test_idParser :: Test
 test_idParser = TestCase $ do
-  assertBool "" False
+  assertBool "" $ parse idParser ""
+    ":ID:       5x" == Right (Line_Id "5x")
 
 test_titleParser :: Test
 test_titleParser = TestCase $ do
@@ -63,22 +64,16 @@ test_titleParser = TestCase $ do
     "#+title: science with space  "
     == Right (Line_Title " science with space  ")
 
-test_bodyParser :: Test
-test_bodyParser = TestCase $ do
-  let bodies = sepBy bodyParser newline
-      go :: String
-         -> Either (ParseErrorBundle String Void) [Line]
-         -> Assertion
-      go input goal = assertBool "" $
-        parse bodies "" input == goal
-  go "a\nb"   $ Right [Line_Body "a",Line_Body "b"]
-  go "a\nb\n" $ Right [Line_Body "a",Line_Body "b",Line_Body ""]
-
 test_headingParser :: Test
 test_headingParser = TestCase $ do
   assertBool "" $ parse headingParser ""
-    "** a" == Right (Line_Heading 2 "a")
+    "** a" == Right (Line_Heading 2 [OrdinaryText_text "a"])
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do
-  assertBool "TODO: use data/tiny_test.org" False
+  the_lines <- parseFile "data/tiny_test.org"
+  assertBool "TODO: Add lines to goal below." $ the_lines ==
+    Right [ (1, Line_PropsStart)
+          , (2, Line_Id "1")
+          , (3, Line_PropsEnd)
+          , (4, Line_Title " tiny test file") ]

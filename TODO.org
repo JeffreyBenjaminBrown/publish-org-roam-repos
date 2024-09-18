@@ -1,3 +1,4 @@
+* rename OrdinaryText -> NormalText
 * build the index
   For each file in each repo:
 ** Find all the IDs in it.
