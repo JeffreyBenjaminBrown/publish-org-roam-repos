@@ -72,8 +72,20 @@ test_headingParser = TestCase $ do
 test_parseFile :: Test
 test_parseFile = TestCase $ do
   the_lines <- parseFile "data/tiny_test.org"
-  assertBool "TODO: Add lines to goal below." $ the_lines ==
-    Right [ (1, Line_PropsStart)
-          , (2, Line_Id "1")
-          , (3, Line_PropsEnd)
-          , (4, Line_Title " tiny test file") ]
+  assertBool "TODO: Add lines to goal below." $
+    the_lines == Right
+    [ (1, Line_PropsStart)
+    , (2, Line_Id "1")
+    , (3, Line_PropsEnd)
+    , (4, Line_Title " tiny test file")
+    , (5, Line_Heading 1
+          [ NormalText_text "A link to ",
+            NormalText_link "1" "this file",
+            NormalText_text " and a link to ",
+            NormalText_link "2" "the heading below" ] )
+    , (6, Line_Heading 2
+          [NormalText_text "an imaginary header"] )
+    , (7, Line_PropsStart)
+    , (8, Line_Id "2")
+    , (9, Line_PropsEnd)
+    , (10, Line_Body [NormalText_text "   With some text."] ) ]

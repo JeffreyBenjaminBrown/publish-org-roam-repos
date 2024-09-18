@@ -36,15 +36,15 @@ lineContentParser = many ( try ordinaryTextParser
                            <|> linkParser )
 
 propertiesStartParser :: Parser Line
-propertiesStartParser = string ":PROPERTIES:"
+propertiesStartParser = optional space >> string ":PROPERTIES:"
                         >> return Line_PropsStart
 
 propertiesEndParser :: Parser Line
-propertiesEndParser = string ":END:"
+propertiesEndParser = optional space >> string ":END:"
                       >> return Line_PropsEnd
 
 idParser :: Parser Line
-idParser = string ":ID:" >> space >>
+idParser = optional space >> string ":ID:" >> space >>
            Line_Id <$> some (anySingleBut '\n')
 
 titleParser :: Parser Line
@@ -64,6 +64,7 @@ bodyParser = Line_Body <$> lineContentParser
 lineParser :: Parser Line
 lineParser = choice [ try propertiesStartParser
                     , try propertiesEndParser
+                    , try idParser
                     , try titleParser
                     , try headingParser
                     , bodyParser ]
