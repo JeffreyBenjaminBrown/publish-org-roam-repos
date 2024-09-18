@@ -28,20 +28,20 @@ allTests = TestList
 test_linkParser :: Test
 test_linkParser = TestCase $ do
   assertBool "" $ parse linkParser "" "[[:id:1][hello]]"
-    == Right (OrdinaryText_link "1" "hello")
+    == Right (NormalText_link "1" "hello")
 
 test_ordinaryTextParser :: Test
 test_ordinaryTextParser = TestCase $ do
   assertBool "" $ parse ordinaryTextParser "" "abc"
-    == Right (OrdinaryText_text "abc")
+    == Right (NormalText_text "abc")
 
 test_lineContentParser :: Test
 test_lineContentParser = TestCase $ do
   assertBool "" $ parse lineContentParser ""
     "word [[:id:some-id][some link text]] later words"
-    == Right [ OrdinaryText_text "word "
-             , OrdinaryText_link "some-id" "some link text"
-             , OrdinaryText_text " later words" ]
+    == Right [ NormalText_text "word "
+             , NormalText_link "some-id" "some link text"
+             , NormalText_text " later words" ]
 
 test_propertiesStartParser :: Test
 test_propertiesStartParser = TestCase $ do
@@ -67,7 +67,7 @@ test_titleParser = TestCase $ do
 test_headingParser :: Test
 test_headingParser = TestCase $ do
   assertBool "" $ parse headingParser ""
-    "** a" == Right (Line_Heading 2 [OrdinaryText_text "a"])
+    "** a" == Right (Line_Heading 2 [NormalText_text "a"])
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do

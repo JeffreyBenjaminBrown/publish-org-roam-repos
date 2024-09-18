@@ -13,17 +13,17 @@ type Parser = Parsec Void String
 
 -- * Parsers for within header or body text
 
-linkParser :: Parser OrdinaryText
+linkParser :: Parser NormalText
 linkParser = do
   _    <- string "[[:id:"
   uri  <- many $ anySingleBut ']'
   _    <- string "]["
   name <- many $ anySingleBut ']'
   _    <- string "]]"
-  return $ OrdinaryText_link uri name
+  return $ NormalText_link uri name
 
-ordinaryTextParser :: Parser OrdinaryText
-ordinaryTextParser = OrdinaryText_text <$>
+ordinaryTextParser :: Parser NormalText
+ordinaryTextParser = NormalText_text <$>
   some ( notFollowedBy -- TODO: Understand `notFollowedBy`.
          linkParser
          >> anySingleBut '\n')
@@ -31,7 +31,7 @@ ordinaryTextParser = OrdinaryText_text <$>
 
 -- * Each line in the file is one of these.
 
-lineContentParser :: Parser [OrdinaryText]
+lineContentParser :: Parser [NormalText]
 lineContentParser = many ( try ordinaryTextParser
                            <|> linkParser )
 

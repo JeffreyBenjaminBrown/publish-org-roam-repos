@@ -7,16 +7,16 @@ type LineNumber = Int
 
 type URI = String
 
-data OrdinaryText = OrdinaryText_text String
-                  | OrdinaryText_link URI String
+data NormalText = NormalText_text String
+                  | NormalText_link URI String
   deriving (Show, Eq)
 
 data Line = Line_PropsStart
           | Line_PropsEnd
           | Line_Id String
           | Line_Title String
-          | Line_Heading Int [OrdinaryText]
-          | Line_Body        [OrdinaryText]
+          | Line_Heading Int [NormalText]
+          | Line_Body        [NormalText]
   deriving (Show, Eq)
 
 
