@@ -43,9 +43,9 @@ propertiesEndParser :: Parser Line
 propertiesEndParser = optional space >> string ":END:"
                       >> return Line_PropsEnd
 
-idParser :: Parser Line
-idParser = optional space >> string ":ID:" >> space >>
-           Line_Id <$> some (anySingleBut '\n')
+uriParser :: Parser Line
+uriParser = optional space >> string ":ID:" >> space >>
+           Line_URI <$> some (anySingleBut '\n')
 
 titleParser :: Parser Line
 titleParser = string "#+title:" >>
@@ -64,7 +64,7 @@ bodyParser = Line_Body <$> lineContentParser
 lineParser :: Parser Line
 lineParser = choice [ try propertiesStartParser
                     , try propertiesEndParser
-                    , try idParser
+                    , try uriParser
                     , try titleParser
                     , try headingParser
                     , bodyParser ]

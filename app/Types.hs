@@ -13,7 +13,7 @@ data NormalText = NormalText_text String
 
 data Line = Line_PropsStart
           | Line_PropsEnd
-          | Line_Id String
+          | Line_URI String
           | Line_Title String
           | Line_Heading Int [NormalText]
           | Line_Body        [NormalText]

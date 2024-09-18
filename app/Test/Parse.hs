@@ -18,7 +18,7 @@ allTests = TestList
   , test_lineContentParser
   , test_propertiesStartParser
   , test_propertiesEndParser
-  , test_idParser
+  , test_uriParser
   , test_titleParser
   , test_headingParser
   -- , test_bodyParser -- too trivial to test.
@@ -53,10 +53,10 @@ test_propertiesEndParser = TestCase $ do
   assertBool "" $ parse propertiesEndParser ""
     ":END:" == Right Line_PropsEnd
 
-test_idParser :: Test
-test_idParser = TestCase $ do
-  assertBool "" $ parse idParser ""
-    ":ID:       5x" == Right (Line_Id "5x")
+test_uriParser :: Test
+test_uriParser = TestCase $ do
+  assertBool "" $ parse uriParser ""
+    ":ID:       5x" == Right (Line_URI "5x")
 
 test_titleParser :: Test
 test_titleParser = TestCase $ do
@@ -75,7 +75,7 @@ test_parseFile = TestCase $ do
   assertBool "TODO: Add lines to goal below." $
     the_lines == Right
     [ (1, Line_PropsStart)
-    , (2, Line_Id "1")
+    , (2, Line_URI "1")
     , (3, Line_PropsEnd)
     , (4, Line_Title " tiny test file")
     , (5, Line_Heading 1
@@ -86,7 +86,7 @@ test_parseFile = TestCase $ do
     , (6, Line_Heading 2
           [NormalText_text "an imaginary header"] )
     , (7, Line_PropsStart)
-    , (8, Line_Id "2")
+    , (8, Line_URI "2")
     , (9, Line_PropsEnd)
     , (10, Line_Body [NormalText_text "   With some text."] )
     , (11, Line_Body []) ]
