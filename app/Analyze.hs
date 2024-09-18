@@ -21,7 +21,7 @@ linesOfIds titleLine file = let
                         -> (String, Maybe Int)
   fromJust_and_maybeInt (Just s,i) =
     (s, if i > titleLine
-        then Just i    -- the URI is for a heading *within* the file
+        then Just i    -- the URI is for a headline *within* the file
         else Nothing ) -- the URI is for the *entire* file
   fromJust_and_maybeInt _ =
     undefined -- no other pattern for the _ should be possible

@@ -15,7 +15,7 @@ data Line = Line_PropsStart
           | Line_PropsEnd
           | Line_URI String
           | Line_Title String
-          | Line_Heading Int [NormalText]
+          | Line_Headline Int [NormalText]
           | Line_Body        [NormalText]
   deriving (Show, Eq)
 
@@ -30,5 +30,5 @@ data Node = Node {
   node_repo :: Repo,
   node_file :: FilePath, -- ^ relative
   node_line :: Maybe Int -- ^ Nothing for the URI of the whole file,
-                         -- Just for URI of a heading within it.
+                         -- Just for URI of a headline within it.
   }

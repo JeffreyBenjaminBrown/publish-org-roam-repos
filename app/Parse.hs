@@ -51,12 +51,12 @@ titleParser :: Parser Line
 titleParser = string "#+title:" >>
               Line_Title <$> many (anySingleBut '\n')
 
-headingParser :: Parser Line
-headingParser = do
+headlineParser :: Parser Line
+headlineParser = do
   numAsterisks <- some (char '*')
   _ <- char ' '
   rest <- lineContentParser
-  return $ Line_Heading (length numAsterisks) rest
+  return $ Line_Headline (length numAsterisks) rest
 
 bodyParser :: Parser Line
 bodyParser = Line_Body <$> lineContentParser
@@ -66,7 +66,7 @@ lineParser = choice [ try propertiesStartParser
                     , try propertiesEndParser
                     , try uriParser
                     , try titleParser
-                    , try headingParser
+                    , try headlineParser
                     , bodyParser ]
 
 parseFile :: FilePath -> IO ( Either

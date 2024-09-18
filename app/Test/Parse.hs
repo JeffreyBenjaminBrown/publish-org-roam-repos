@@ -20,7 +20,7 @@ allTests = TestList
   , test_propertiesEndParser
   , test_uriParser
   , test_titleParser
-  , test_headingParser
+  , test_headlineParser
   -- , test_bodyParser -- too trivial to test.
   , test_parseFile
   ]
@@ -64,10 +64,10 @@ test_titleParser = TestCase $ do
     "#+title: science with space  "
     == Right (Line_Title " science with space  ")
 
-test_headingParser :: Test
-test_headingParser = TestCase $ do
-  assertBool "" $ parse headingParser ""
-    "** a" == Right (Line_Heading 2 [NormalText_text "a"])
+test_headlineParser :: Test
+test_headlineParser = TestCase $ do
+  assertBool "" $ parse headlineParser ""
+    "** a" == Right (Line_Headline 2 [NormalText_text "a"])
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do
@@ -78,12 +78,12 @@ test_parseFile = TestCase $ do
     , (2, Line_URI "1")
     , (3, Line_PropsEnd)
     , (4, Line_Title " tiny test file")
-    , (5, Line_Heading 1
+    , (5, Line_Headline 1
           [ NormalText_text "A link to ",
             NormalText_link "1" "this file",
             NormalText_text " and a link to ",
-            NormalText_link "2" "the heading below" ] )
-    , (6, Line_Heading 2
+            NormalText_link "2" "the headline below" ] )
+    , (6, Line_Headline 2
           [NormalText_text "an imaginary header"] )
     , (7, Line_PropsStart)
     , (8, Line_URI "2")
