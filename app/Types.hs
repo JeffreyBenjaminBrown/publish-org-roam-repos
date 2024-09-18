@@ -3,6 +3,8 @@ module Types where
 
 -- * In use
 
+type LineNumber = Int
+
 type URI = String
 
 data OrdinaryText = OrdinaryText_text String
@@ -11,6 +13,7 @@ data OrdinaryText = OrdinaryText_text String
 
 data Line = PropertiesStart
           | PropertiesEnd
+          | Id String
           | Title String
           | Heading Int String
           | Body        String

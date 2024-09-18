@@ -18,6 +18,7 @@ allTests = TestList
   , test_lineContentParser
   , test_propertiesStartParser
   , test_propertiesEndParser
+  , test_idParser
   , test_titleParser
   , test_headingParser
   , test_bodyParser
@@ -50,6 +51,10 @@ test_propertiesEndParser :: Test
 test_propertiesEndParser = TestCase $ do
   assertBool "" $ parse propertiesEndParser ""
     ":END:" == Right PropertiesEnd
+
+test_idParser :: Test
+test_idParser = TestCase $ do
+  assertBool "" False
 
 test_titleParser :: Test
 test_titleParser = TestCase $ do

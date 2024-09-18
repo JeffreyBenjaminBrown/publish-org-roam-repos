@@ -39,6 +39,9 @@ propertiesStartParser :: Parser Line
 propertiesStartParser = string ":PROPERTIES:"
                         >> return PropertiesStart
 
+idParser :: Parser Line
+idParser = string ":END:" >> space >> anySingleBut '\n'
+
 propertiesEndParser :: Parser Line
 propertiesEndParser = string ":END:"
                       >> return PropertiesEnd
