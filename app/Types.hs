@@ -19,16 +19,16 @@ data Line = Line_PropsStart
           | Line_Body        [NormalText]
   deriving (Show, Eq)
 
-
--- * Not in use
-
 data Repo = Repo {
-  name  ::  String,
-  root  ::  FilePath }
+  repo_name :: String,
+  repo_local_path :: FilePath, -- ^ absolute
+  repo_online_path :: FilePath -- ^ absolute
+  }
 
 data Node = Node {
-  uri  :: URI,
-  file :: FilePath,
-  line :: Maybe Int -- ^ Nothing for the URI of the whole file,
-                    -- Just for URI of a heading within it
+  node_uri  :: URI,
+  node_repo :: Repo,
+  node_file :: FilePath, -- ^ relative
+  node_line :: Maybe Int -- ^ Nothing for the URI of the whole file,
+                         -- Just for URI of a heading within it.
   }
