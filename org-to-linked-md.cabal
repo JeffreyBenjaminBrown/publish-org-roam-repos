@@ -23,6 +23,7 @@ executable org-to-linked-md
       Analyze.OneLine,
       GetPaths,
       GPT,
+      Index,
       Parse,
       Test,
       Test.Analyze,

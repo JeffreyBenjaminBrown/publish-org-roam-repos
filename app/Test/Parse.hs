@@ -1,5 +1,6 @@
 module Test.Parse where
 
+import Data.Either (isRight)
 import Test.HUnit
 
 -- everything Parse.hs uses
@@ -71,22 +72,24 @@ test_headlineParser = TestCase $ do
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do
-  the_lines <- parseFile "data/tiny_test.org"
-  assertBool "TODO: Add lines to goal below." $
-    the_lines == Right
-    [ (1, Line_PropsStart)
-    , (2, Line_URI "1")
-    , (3, Line_PropsEnd)
-    , (4, Line_Title " tiny test file")
-    , (5, Line_Headline 1
-          [ NormalText_text "A link to ",
-            NormalText_link "1" "this file",
-            NormalText_text " and a link to ",
-            NormalText_link "2" "the headline below" ] )
-    , (6, Line_Headline 2
-          [NormalText_text "an imaginary header"] )
-    , (7, Line_PropsStart)
-    , (8, Line_URI "2")
-    , (9, Line_PropsEnd)
-    , (10, Line_Body [NormalText_text "   With some text."] )
-    , (11, Line_Body []) ]
+  e_the_lines <- parseFile "data/tiny_test.org"
+  assertBool "" $ isRight e_the_lines
+  let Right the_lines = e_the_lines
+  assertBool "1"  $ the_lines !! 0 == (1, Line_PropsStart)
+  assertBool "2"  $ the_lines !! 1 == (2, Line_URI "1")
+  assertBool "3"  $ the_lines !! 2 == (3, Line_PropsEnd)
+  assertBool "4"  $ the_lines !! 3 == (4, Line_Title " tiny test file")
+  assertBool "5"  $ the_lines !! 4 ==
+    (5, Line_Headline 1
+        [ NormalText_text "A link to ",
+          NormalText_link "1" "this file",
+          NormalText_text " and a link to ",
+          NormalText_link "2" "the headline below" ] )
+  assertBool "6"  $ the_lines !! 5 ==
+    (6, Line_Headline 2 [NormalText_text "an imaginary headline"] )
+  assertBool "7"  $ the_lines !! 6 == (7, Line_PropsStart)
+  assertBool "8"  $ the_lines !! 7 == (8, Line_URI "2")
+  assertBool "9"  $ the_lines !! 8 == (9, Line_PropsEnd)
+  assertBool "10" $ the_lines !! 9 ==
+    (10, Line_Body [NormalText_text "   With some text."] )
+  assertBool "11" $ the_lines !! 10 == (11, Line_Body [])

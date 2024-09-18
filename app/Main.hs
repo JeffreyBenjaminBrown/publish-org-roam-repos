@@ -21,6 +21,7 @@ import Text.Regex.TDFA ((=~))
 import Analyze
 import GetPaths
 import GPT
+import Index
 import Parse
 import Test
 import Types
