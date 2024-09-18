@@ -18,7 +18,6 @@ allTests = TestList
 test_headline_to_anchor :: Test
 test_headline_to_anchor = TestCase $ do
   assertBool "" $ headline_to_anchor ",ab." == "ab"
-  assertBool "try lots of cases, and see result on Github" False
 
 test_headline_if_headline :: Test
 test_headline_if_headline = TestCase $ do

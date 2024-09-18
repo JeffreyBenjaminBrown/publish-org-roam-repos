@@ -11,7 +11,6 @@ import Types
 
 type Parser = Parsec Void String
 
-
 -- * Parsers for within header or body text
 
 linkParser :: Parser OrdinaryText
@@ -65,6 +64,9 @@ lineParser = choice [ try propertiesStartParser
                     , try headingParser
                     , bodyParser ]
 
-parseLines :: String ->
-  Either (ParseErrorBundle String Void) [Line]
-parseLines input = parse (many lineParser) "" input
+parseFile :: FilePath -> IO ( Either
+                               (ParseErrorBundle String Void)
+                               [(LineNumber, Line)] )
+parseFile filename = do
+  input <- readFile filename
+  return $ zip [1..] <$> parse (many lineParser) filename input

@@ -1,17 +1,13 @@
-* test headline_to_anchor using Github
-  Try `data/anchors_test.org`.
-  Maybe add cases to Tests.Analyze for each heading.
-  Consider the case of a link in the heading.
-* ? consider linking just to line numbers
-  This won't be robust to changes in individual files --
-  I'll have to regenerate the whole repo.
-  But it would be easier.
 * build the index
   For each file in each repo:
-  Find all the IDs in it.
-  If any of those is associated with a particular header,
-  find the header,
-  and determine how Github will represent its anchor.
+** Find all the IDs in it.
+** For the non-title IDs
+*** initially, find the line number of each
+    This won't be robust to changes in individual files --
+    I'll have to regenerate the whole repo.
+    But it will be easier.
+*** later, maybe, find the headline instead of the line number
+    and determine how Github will represent its anchor.
 * rewrite links
 ** syntax
 #+BEGIN_SRC text
@@ -22,15 +18,15 @@
 #+END_SRC
 ** must replace every match *within line* or even *across lines*
    Really I need a parser.
-** On Github, links to .org headers work like links to .md headers!
-*** They look like `URL#text-of-the-header`.
+** On Github, links to .org headlines work like links to .md headlines!
+*** They look like `URL#text-of-the-headline`.
 *** I haven't tested edge cases.
     Weird punctuation, capitalization, space, etc.
 *** the procedure ChatGPT described
 **** initially
  Here’s how you can do it:
 
-     Find or create the sub-header: Each header in an .org file has an automatically generated anchor, which is based on the text of the header.
+     Find or create the sub-headline: Each headline in an .org file has an automatically generated anchor, which is based on the text of the headline.
 
      Format the anchor:
          Lowercase all the characters.
@@ -38,9 +34,9 @@
          Remove any punctuation like periods, commas, colons, etc.
 
      Create the link: Use a relative link to the .org file followed by the anchor, prefixed by a #.
-*** duplicate headers => "-n" suffixes, starting from 1
+*** duplicate headlines => "-n" suffixes, starting from 1
 **** ChatGPT explains
- If two headers in the same .org file have the same text, GitHub generates unique anchors for each by appending incremental numbers to the duplicate anchors. The first occurrence of the header will have a standard anchor based on the header text, while subsequent occurrences of headers with the same text will have -1, -2, etc., appended to their anchors.
+ If two headlines in the same .org file have the same text, GitHub generates unique anchors for each by appending incremental numbers to the duplicate anchors. The first occurrence of the headline will have a standard anchor based on the headline text, while subsequent occurrences of headlines with the same text will have -1, -2, etc., appended to their anchors.
 **** It's true (I tested).
 * think about leading # symbols, and others
 ** motivation
@@ -50,6 +46,11 @@
 ** what to research
    What happens to lines that start with #? *? -? +?
    If there's leading space before them?
+* BLOCKED test headline_to_anchor using Github
+**** BLOCKED because I'm not using headline anchors yet
+  Try `data/anchors_test.org`.
+  Maybe add cases to Tests.Analyze for each heading.
+  Consider the case of a link in the heading.
 * DONE obsolete
 ** Should it produce .md, or .org?
 *** org would be more natural
