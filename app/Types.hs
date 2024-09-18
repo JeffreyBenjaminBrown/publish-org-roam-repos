@@ -11,12 +11,12 @@ data OrdinaryText = OrdinaryText_text String
                   | OrdinaryText_link URI String
   deriving (Show, Eq)
 
-data Line = PropertiesStart
-          | PropertiesEnd
-          | Id String
-          | Title String
-          | Heading Int String
-          | Body        String
+data Line = Line_PropsStart
+          | Line_PropsEnd
+          | Line_Id String
+          | Line_Title String
+          | Line_Heading Int String
+          | Line_Body        String
   deriving (Show, Eq)
 
 

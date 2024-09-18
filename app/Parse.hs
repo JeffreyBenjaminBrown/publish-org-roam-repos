@@ -37,29 +37,29 @@ lineContentParser = many ( try ordinaryTextParser
 
 propertiesStartParser :: Parser Line
 propertiesStartParser = string ":PROPERTIES:"
-                        >> return PropertiesStart
+                        >> return Line_PropsStart
 
 propertiesEndParser :: Parser Line
 propertiesEndParser = string ":END:"
-                      >> return PropertiesEnd
+                      >> return Line_PropsEnd
 
 idParser :: Parser Line
 idParser = string ":ID:" >> space >>
-           Id <$> some (anySingleBut '\n')
+           Line_Id <$> some (anySingleBut '\n')
 
 titleParser :: Parser Line
 titleParser = string "#+title:" >>
-              Title <$> many (anySingleBut '\n')
+              Line_Title <$> many (anySingleBut '\n')
 
 headingParser :: Parser Line
 headingParser = do
   numAsterisks <- some (char '*')
   _ <- char ' '
   rest <- many (anySingleBut '\n')
-  return $ Heading (length numAsterisks) rest
+  return $ Line_Heading (length numAsterisks) rest
 
 bodyParser :: Parser Line
-bodyParser = Body <$> many (anySingleBut '\n')
+bodyParser = Line_Body <$> many (anySingleBut '\n')
 
 lineParser :: Parser Line
 lineParser = choice [ try propertiesStartParser

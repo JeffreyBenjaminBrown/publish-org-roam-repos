@@ -46,12 +46,12 @@ test_lineContentParser = TestCase $ do
 test_propertiesStartParser :: Test
 test_propertiesStartParser = TestCase $ do
   assertBool "" $ parse propertiesStartParser ""
-    ":PROPERTIES:" == Right PropertiesStart
+    ":PROPERTIES:" == Right Line_PropsStart
 
 test_propertiesEndParser :: Test
 test_propertiesEndParser = TestCase $ do
   assertBool "" $ parse propertiesEndParser ""
-    ":END:" == Right PropertiesEnd
+    ":END:" == Right Line_PropsEnd
 
 test_idParser :: Test
 test_idParser = TestCase $ do
@@ -61,7 +61,7 @@ test_titleParser :: Test
 test_titleParser = TestCase $ do
   assertBool "" $ parse titleParser ""
     "#+title: science with space  "
-    == Right (Title " science with space  ")
+    == Right (Line_Title " science with space  ")
 
 test_bodyParser :: Test
 test_bodyParser = TestCase $ do
@@ -71,13 +71,13 @@ test_bodyParser = TestCase $ do
          -> Assertion
       go input goal = assertBool "" $
         parse bodies "" input == goal
-  go "a\nb"   $ Right [Body "a",Body "b"]
-  go "a\nb\n" $ Right [Body "a",Body "b",Body ""]
+  go "a\nb"   $ Right [Line_Body "a",Line_Body "b"]
+  go "a\nb\n" $ Right [Line_Body "a",Line_Body "b",Line_Body ""]
 
 test_headingParser :: Test
 test_headingParser = TestCase $ do
   assertBool "" $ parse headingParser ""
-    "** a" == Right (Heading 2 "a")
+    "** a" == Right (Line_Heading 2 "a")
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do
