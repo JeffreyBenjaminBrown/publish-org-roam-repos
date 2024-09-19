@@ -1,16 +1,18 @@
 module Rewrite where
 
 
-import System.FilePath (combine) -- ^ concatentate paths
+import qualified Data.Map as M
+import           System.FilePath (combine) -- ^ concatentate paths
 
 import Anchor
 import Types
 
 
-joinLinkText :: Repo
-             -> FilePath -- ^ relative filepath in repo
-             -> Link -> String
-joinLinkText r p (Link _ name) =
+index_and_link_to_text :: Index -> Link -> Either String String
+index_and_link_to_text idx l@(Link uri _) = do
+  case M.lookup uri idx of
+    Nothing          -> Left  $ uri ++ " not found in index."
+    Just (n :: Node) -> Right $ joinLinkText n l
 
 joinLinkText :: Node -- ^ Should share a URI with the Link.
              -> Link -- ^ Should share a URI with the Node.
