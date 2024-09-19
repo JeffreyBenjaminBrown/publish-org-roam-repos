@@ -8,8 +8,18 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_joinLinkText
+  [ test_replaceDoubleDash
+  , test_joinLinkText
   ]
+
+test_replaceDoubleDash :: Test
+test_replaceDoubleDash = TestCase $ do
+  assertBool "" $ replaceDoubleDash "--" == ""
+  assertBool "" $ replaceDoubleDash "-- --" == " "
+  assertBool "" $ replaceDoubleDash "-- -- --" == "  "
+  assertBool "" $ replaceDoubleDash "----" == "----"
+  assertBool "" $ replaceDoubleDash "--x--x-x--" == "xx-x"
+  assertBool "" $ replaceDoubleDash "-x-x--x-" == "-x-xx-"
 
 test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do

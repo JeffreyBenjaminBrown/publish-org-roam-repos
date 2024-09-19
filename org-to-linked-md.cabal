@@ -35,10 +35,12 @@ executable org-to-linked-md
     build-depends:
       HUnit,
       base ^>=4.18.2.1,
+      containers,
       directory,
       filepath,
       megaparsec,
       regex-compat,
+      -- regex-pcre, # Cabal doesn't like this.
       regex-tdfa,
       text,
     hs-source-dirs:   app

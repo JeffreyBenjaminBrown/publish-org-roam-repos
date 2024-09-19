@@ -23,6 +23,7 @@ import GetPaths
 import GPT
 import BuildIndex
 import Parse
+import Rewrite
 import Test
 import Types
 

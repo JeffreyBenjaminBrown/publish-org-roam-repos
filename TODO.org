@@ -1,4 +1,5 @@
 * rewrite links
+** links in headlines are replaced with their nickname
 ** syntax
 #+BEGIN_SRC text
 They look like this:
