@@ -1,3 +1,6 @@
+* convert
+  node_line :: Maybe Int
+  to node_headline :: Mauybe Headline
 * rewrite links
 ** links in headlines are replaced with their nickname
 ** syntax
@@ -44,8 +47,8 @@ And the URL should look like:
 * BLOCKED test headline_to_anchor using Github
 **** BLOCKED because I'm not using headline anchors yet
   Try `data/anchors_test.org`.
-  Maybe add cases to Tests.Analyze for each heading.
-  Consider the case of a link in the heading.
+  Maybe add cases to Tests.Analyze for each headline.
+  Consider the case of a link in the headline.
 * DONE obsolete
 ** Should it produce .md, or .org?
 *** org would be more natural
@@ -54,9 +57,9 @@ And the URL should look like:
 ** If producing .md, find a canned org-to-md conversion routine
    If it exists, it's probably easier to modify that
    than to start from scratch.
-** research links to headings
+** research links to headlines
 *** What is the format?
 *** Can it be done in a .org file on Github?
 *** Should I create a new ID, one that definitely works,
-    for each linked heading?
+    for each linked headline?
 ** research Github URL formats
