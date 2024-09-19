@@ -8,33 +8,8 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_replaceDoubleDash
-  , test_mangleAnchorPunctuation
-  , test_normalTexts_to_visibleText
-  , test_joinLinkText
+  [ test_joinLinkText
   ]
-
-test_replaceDoubleDash :: Test
-test_replaceDoubleDash = TestCase $ do
-  assertBool "" $ replaceDoubleDash "--" == ""
-  assertBool "" $ replaceDoubleDash "-- --" == " "
-  assertBool "" $ replaceDoubleDash "-- -- --" == "  "
-  assertBool "" $ replaceDoubleDash "----" == "----"
-  assertBool "" $ replaceDoubleDash "--x--x-x--" == "xx-x"
-  assertBool "" $ replaceDoubleDash "-x-x--x-" == "-x-xx-"
-
-test_mangleAnchorPunctuation :: Test
-test_mangleAnchorPunctuation = TestCase $ do
-  assertBool "" $ mangleAnchorPunctuation "!-!-!" == "--"
-  assertBool "" $ mangleAnchorPunctuation "--a-!-b-- " == "a--b-"
-
-test_normalTexts_to_visibleText :: Test
-test_normalTexts_to_visibleText = TestCase $ do
-  assertBool "" $ normalTexts_to_visibleText
-    [ NormalText_text "hello "
-    , NormalText_link $ Link undefined "link name"
-    , NormalText_text " goodbye" ]
-    == "hello link name goodbye"
 
 test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do
