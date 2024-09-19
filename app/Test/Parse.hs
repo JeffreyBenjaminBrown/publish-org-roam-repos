@@ -3,10 +3,7 @@ module Test.Parse where
 import Data.Either (isRight)
 import Test.HUnit
 
--- everything Parse.hs uses
-import           Data.Void
 import           Text.Megaparsec
-import           Text.Megaparsec.Char
 
 import Parse
 import Types
@@ -29,7 +26,7 @@ allTests = TestList
 test_linkParser :: Test
 test_linkParser = TestCase $ do
   assertBool "" $ parse linkParser "" "[[:id:1][hello]]"
-    == Right (NormalText_link "1" "hello")
+    == Right (NormalText_link $ Link  "1" "hello")
 
 test_ordinaryTextParser :: Test
 test_ordinaryTextParser = TestCase $ do
@@ -41,7 +38,7 @@ test_lineContentParser = TestCase $ do
   assertBool "" $ parse lineContentParser ""
     "word [[:id:some-id][some link text]] later words"
     == Right [ NormalText_text "word "
-             , NormalText_link "some-id" "some link text"
+             , NormalText_link $ Link  "some-id" "some link text"
              , NormalText_text " later words" ]
 
 test_propertiesStartParser :: Test
@@ -74,7 +71,9 @@ test_parseFile :: Test
 test_parseFile = TestCase $ do
   e_the_lines <- parseFile "data/tiny_test.org"
   assertBool "" $ isRight e_the_lines
-  let Right the_lines = e_the_lines
+  let the_lines = case e_the_lines of
+        Right x -> x
+        Left _  -> undefined -- impossible; see previous assertion
   assertBool "1"  $ the_lines !! 0 == (1, Line_PropsStart)
   assertBool "2"  $ the_lines !! 1 == (2, Line_URI "1")
   assertBool "3"  $ the_lines !! 2 == (3, Line_PropsEnd)
@@ -82,9 +81,9 @@ test_parseFile = TestCase $ do
   assertBool "5"  $ the_lines !! 4 ==
     (5, Line_Headline 1
         [ NormalText_text "A link to ",
-          NormalText_link "1" "this file",
+          NormalText_link $ Link  "1" "this file",
           NormalText_text " and a link to ",
-          NormalText_link "2" "the headline below" ] )
+          NormalText_link $ Link "2" "the headline below" ] )
   assertBool "6"  $ the_lines !! 5 ==
     (6, Line_Headline 2 [NormalText_text "an imaginary headline"] )
   assertBool "7"  $ the_lines !! 6 == (7, Line_PropsStart)

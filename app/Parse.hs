@@ -20,7 +20,7 @@ linkParser = do
   _    <- string "]["
   name <- many $ anySingleBut ']'
   _    <- string "]]"
-  return $ NormalText_link uri name
+  return $ NormalText_link $ Link uri name
 
 ordinaryTextParser :: Parser NormalText
 ordinaryTextParser = NormalText_text <$>

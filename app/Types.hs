@@ -7,8 +7,11 @@ type LineNumber = Int
 
 type URI = String
 
+data Link = Link URI String
+  deriving (Show, Eq)
+
 data NormalText = NormalText_text String
-                  | NormalText_link URI String
+                | NormalText_link Link
   deriving (Show, Eq)
 
 data Line = Line_PropsStart
