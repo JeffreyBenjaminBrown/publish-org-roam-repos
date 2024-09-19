@@ -17,7 +17,7 @@ And the URL should look like:
     Weird punctuation, capitalization, space, etc.
 *** the procedure ChatGPT described
 **** initially
- Here’s how you can do it:
+     Here’s how you can do it:
 
      Find or create the sub-headline: Each headline in an .org file has an automatically generated anchor, which is based on the text of the headline.
 
