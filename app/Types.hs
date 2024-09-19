@@ -35,8 +35,9 @@ data Node = Node {
   node_uri  :: URI,
   node_repo :: Repo,
   node_file :: FilePath, -- ^ relative
-  node_line :: Maybe Int
-    -- ^ Nothing for the URI of the whole file,
-    -- Just for URI of a headline within it.
+  node_headline :: Maybe Headline
+    -- ^ Nothing if the URI is for the whole file.
+    -- Just if the URI is for a headline within it.
   } deriving (Show, Eq)
 
+type Index = Map URI Node

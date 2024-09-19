@@ -23,7 +23,6 @@ executable org-to-linked-md
       BuildIndex,
       GPT,
       GetPaths,
-      Headline,
       Parse,
       Rewrite,
       Test,
