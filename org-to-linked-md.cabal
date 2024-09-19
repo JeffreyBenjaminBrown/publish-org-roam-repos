@@ -24,9 +24,11 @@ executable org-to-linked-md
       Headline,
       Index,
       Parse,
+      Rewrite,
       Test,
       Test.Index,
       Test.Parse,
+      Test.Rewrite,
       Types,
       Util,
     -- other-extensions:

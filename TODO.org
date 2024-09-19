@@ -1,10 +1,12 @@
 * rewrite links
 ** syntax
 #+BEGIN_SRC text
-  They look like this:
-    [[id:4274ee9a-8b13-4763-9719-f32dd7efbcea][Switzerland trip]]
-  They should (probably) look like this:
-    [[URL][text]]
+They look like this:
+  [[id:4274ee9a-8b13-4763-9719-f32dd7efbcea][Switzerland trip]]
+They should (probably) look like this:
+  [[URL][text]]
+And the URL should look like:
+  https://github.com/JeffreyBenjaminBrown/public-notes-in-org-roam-format/blob/master/filename.org
 #+END_SRC
 ** must replace every match *within line* or even *across lines*
 * ? link to headlines rather than line numbers

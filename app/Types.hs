@@ -23,8 +23,8 @@ data Line = Line_PropsStart
   deriving (Show, Eq)
 
 data Repo = Repo {
-  repo_name :: String,
-  repo_local_path :: FilePath, -- ^ absolute
+  repo_name        :: String,
+  repo_local_path  :: FilePath, -- ^ absolute
   repo_online_path :: FilePath -- ^ absolute
   }
   deriving (Show, Eq)
