@@ -43,6 +43,19 @@ mangleAnchorPunctuation = let
   in map lower_and_change_spaces
      . filter should_be_kept
      . replaceDoubleDash
+
+-- | This produces the string of characters that a human
+-- would see when viewing the line in org-mode --
+-- which, conveniently, is what Github uses to build an anchor.
+normalTexts_to_visibleText ::
+  [NormalText] -- ^ a line from an org-file
+  -> String
+normalTexts_to_visibleText =
+  let f :: NormalText -> String
+      f (NormalText_text t) = t
+      f (NormalText_link (Link _ name)) = name
+  in concatMap f
+
 joinLinkText :: Repo
              -> FilePath -- ^ relative filepath in repo
              -> Link -> String
