@@ -20,23 +20,19 @@ import Types
 import Util (strip)
 
 
-normalTexts_to_anchor ::
-  [NormalText] -- ^ a line from an org-file
-  -> String
-normalTexts_to_anchor = mangleAnchorPunctuation
-                        . normalTexts_to_visibleText
+headline_to_anchor :: Headline -> String
+headline_to_anchor = mangleAnchorPunctuation
+                     . headline_to_visibleText
 
 -- | This produces the string of characters that a human
 -- would see when viewing the line in org-mode --
 -- which, conveniently, is what Github uses to build an anchor.
-normalTexts_to_visibleText ::
-  [NormalText] -- ^ a line from an org-file
-  -> String
-normalTexts_to_visibleText =
+headline_to_visibleText :: Headline -> String
+headline_to_visibleText (Headline _ nts) =
   let f :: NormalText -> String
       f (NormalText_text t) = t
       f (NormalText_link (Link _ name)) = name
-  in strip . concatMap f
+  in strip $ concatMap f nts
 
 -- | This should turn the text of a headline
 -- into the anchor Github creates for it

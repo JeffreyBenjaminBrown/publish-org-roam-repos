@@ -11,7 +11,7 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_normalTexts_to_visibleText
+  [ test_headline_to_visibleText
   , test_mangleAnchorPunctuation
   , test_replaceDoubleDash
   ]
@@ -30,10 +30,11 @@ test_mangleAnchorPunctuation = TestCase $ do
   assertBool "" $ mangleAnchorPunctuation "!-!-!" == "--"
   assertBool "" $ mangleAnchorPunctuation "--a-!-b-- " == "a--b-"
 
-test_normalTexts_to_visibleText :: Test
-test_normalTexts_to_visibleText = TestCase $ do
-  assertBool "" $ normalTexts_to_visibleText
-    [ NormalText_text " hello "
-    , NormalText_link $ Link undefined "link name"
-    , NormalText_text " goodbye " ]
-    == "hello link name goodbye"
+test_headline_to_visibleText :: Test
+test_headline_to_visibleText = TestCase $ do
+  assertBool "" $ "hello link name goodbye"
+    == ( headline_to_visibleText
+         $ Headline undefined
+         [ NormalText_text " hello "
+         , NormalText_link $ Link undefined "link name"
+         , NormalText_text " goodbye " ] )

@@ -1,5 +1,7 @@
 module Types where
 
+import Data.Map (Map)
+
 
 -- * In use
 

@@ -13,10 +13,15 @@ allTests = TestList
 
 test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do
-  let r = Repo { repo_name = undefined
-               , repo_local_path = undefined
-               , repo_online_path = "https://github.com/user/repo" }
-      p = "filename.org"
+  let n = Node
+          { node_uri = undefined
+          , node_repo = Repo {
+              repo_name = undefined
+              , repo_local_path = undefined
+              , repo_online_path = "https://github.com/user/repo" }
+          , node_file = "filename.org"
+          , node_headline = Nothing }
       l = Link undefined "the displayed text"
-  assertBool "" $ joinLinkText r p l ==
+  assertBool "" $ joinLinkText n l ==
     "[[https://github.com/user/repo/blob/master/filename.org][the displayed text]]"
+  assertBool "TODO: One with a headline." False
