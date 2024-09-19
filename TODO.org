@@ -1,13 +1,3 @@
-* build the index
-  For each file in each repo:
-** Find all the IDs in it.
-** For the non-title IDs
-*** initially, find the line number of each
-    This won't be robust to changes in individual files --
-    I'll have to regenerate the whole repo.
-    But it will be easier.
-*** later, maybe, find the headline instead of the line number
-    and determine how Github will represent its anchor.
 * rewrite links
 ** syntax
 #+BEGIN_SRC text
@@ -17,7 +7,8 @@
     [[URL][text]]
 #+END_SRC
 ** must replace every match *within line* or even *across lines*
-   Really I need a parser.
+* ? link to headlines rather than line numbers
+  and determine how Github will represent its anchor.
 ** On Github, links to .org headlines work like links to .md headlines!
 *** They look like `URL#text-of-the-headline`.
 *** I haven't tested edge cases.
@@ -38,7 +29,7 @@
 **** ChatGPT explains
  If two headlines in the same .org file have the same text, GitHub generates unique anchors for each by appending incremental numbers to the duplicate anchors. The first occurrence of the headline will have a standard anchor based on the headline text, while subsequent occurrences of headlines with the same text will have -1, -2, etc., appended to their anchors.
 **** It's true (I tested).
-* think about leading # symbols, and others
+* ? think about leading # symbols, and others
 ** motivation
    In .org files, lines that start with # in Github will not render.
    If generating Markdown, they will be different,
@@ -46,6 +37,7 @@
 ** what to research
    What happens to lines that start with #? *? -? +?
    If there's leading space before them?
+* ? include backlinks at the bottom of each file
 * BLOCKED test headline_to_anchor using Github
 **** BLOCKED because I'm not using headline anchors yet
   Try `data/anchors_test.org`.
