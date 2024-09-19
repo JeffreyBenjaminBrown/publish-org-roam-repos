@@ -1,8 +1,23 @@
+{- | To the best of my knowledge,
+This is how Github converts headline text into an anchor.
+
+In serial, they:
+  - Strip all leading and trailing space.
+  - Delete any isolated pair of dashes,
+    but not if they are part of a longer string of dashes.
+  - Throw away all special characters,
+    keeping only alphanum, space, dash and underscore.
+  - Convert each space into a dash.
+  - If needed, tack on "-n" for some value of n, starting at 1,
+    to distinguish it from anchors earlier in the file.
+-}
+
 module Anchor where
 
 import Data.Char (isAlphaNum, toLower)
 
 import Types
+import Util (strip)
 
 
 normalTexts_to_anchor ::
@@ -21,7 +36,7 @@ normalTexts_to_visibleText =
   let f :: NormalText -> String
       f (NormalText_text t) = t
       f (NormalText_link (Link _ name)) = name
-  in concatMap f
+  in strip . concatMap f
 
 -- | This should turn the text of a headline
 -- into the anchor Github creates for it
