@@ -65,7 +65,8 @@ test_titleParser = TestCase $ do
 test_headlineParser :: Test
 test_headlineParser = TestCase $ do
   assertBool "" $ parse headlineParser ""
-    "** a" == Right (Line_Headline 2 [NormalText_text "a"])
+    "** a" == Right (Line_Headline $
+                     Headline 2 [NormalText_text "a"] )
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do
@@ -79,13 +80,14 @@ test_parseFile = TestCase $ do
   assertBool "3"  $ the_lines !! 2 == (3, Line_PropsEnd)
   assertBool "4"  $ the_lines !! 3 == (4, Line_Title " tiny test file")
   assertBool "5"  $ the_lines !! 4 ==
-    (5, Line_Headline 1
+    (5, Line_Headline $ Headline 1
         [ NormalText_text "A link to ",
           NormalText_link $ Link  "1" "this file",
           NormalText_text " and a link to ",
           NormalText_link $ Link "2" "the headline below" ] )
   assertBool "6"  $ the_lines !! 5 ==
-    (6, Line_Headline 2 [NormalText_text "an imaginary headline"] )
+    (6, Line_Headline $ Headline 2
+        [NormalText_text "an imaginary headline"] )
   assertBool "7"  $ the_lines !! 6 == (7, Line_PropsStart)
   assertBool "8"  $ the_lines !! 7 == (8, Line_URI "2")
   assertBool "9"  $ the_lines !! 8 == (9, Line_PropsEnd)

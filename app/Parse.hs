@@ -56,7 +56,7 @@ headlineParser = do
   numAsterisks <- some (char '*')
   _ <- char ' '
   rest <- lineContentParser
-  return $ Line_Headline (length numAsterisks) rest
+  return $ Line_Headline $ Headline (length numAsterisks) rest
 
 bodyParser :: Parser Line
 bodyParser = Line_Body <$> lineContentParser

@@ -52,7 +52,7 @@ indexFile repo filepath the_lines =
                    then n:nodes
                    else nodes
           in go rest idx nodes'
-    go ((n,Line_Headline _ _):rest) idx nodes =
+    go ((n,Line_Headline _):rest) idx nodes =
       let idx' = idx { last_headline_line_number = Just n }
       in go rest idx' nodes
     go ((_,Line_Title _):rest) idx nodes =
