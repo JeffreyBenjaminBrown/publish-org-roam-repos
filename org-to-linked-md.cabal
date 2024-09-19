@@ -19,14 +19,14 @@ executable org-to-linked-md
     import:           warnings
     main-is:          Main.hs
     other-modules:
-      GetPaths,
+      BuildIndex,
       GPT,
+      GetPaths,
       Headline,
-      Index,
       Parse,
       Rewrite,
       Test,
-      Test.Index,
+      Test.BuildIndex,
       Test.Parse,
       Test.Rewrite,
       Types,

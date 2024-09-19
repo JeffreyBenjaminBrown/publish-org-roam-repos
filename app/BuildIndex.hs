@@ -1,4 +1,4 @@
-module Index where
+module BuildIndex where
 
 import Types
 

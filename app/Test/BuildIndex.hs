@@ -1,9 +1,9 @@
-module Test.Index where
+module Test.BuildIndex where
 
 import Data.Either (isRight)
 import Test.HUnit
 
-import Index
+import BuildIndex
 import Parse (parseFile)
 import Types
 
