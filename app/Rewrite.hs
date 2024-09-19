@@ -29,6 +29,20 @@ replaceDoubleDash input =
       replacement = ""
   in subRegex (mkRegex match) input replacement -}
 
+-- | This should turn the text of a headline
+-- into the anchor Github creates for it
+-- (except for the dash-number that might be tacked onto the end,
+-- which requires knowing the file's previous headlines).
+mangleAnchorPunctuation :: String -> String
+mangleAnchorPunctuation = let
+  lower_and_change_spaces c = if c == ' '
+                              then '-'
+                              else toLower c
+  should_be_kept c = -- keep alphanum, dash, underscore, space
+    isAlphaNum c || c `elem` "-_ "
+  in map lower_and_change_spaces
+     . filter should_be_kept
+     . replaceDoubleDash
 joinLinkText :: Repo
              -> FilePath -- ^ relative filepath in repo
              -> Link -> String

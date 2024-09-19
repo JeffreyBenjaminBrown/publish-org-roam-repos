@@ -11,7 +11,7 @@ import System.Directory (listDirectory)
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
 import           Data.Void
-import           Data.Char (isSpace)
+import           Data.Char (isSpace,isAlphaNum, toLower)
 import           Data.Maybe
 import qualified Data.Map as M
 import           Text.Regex

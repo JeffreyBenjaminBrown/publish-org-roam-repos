@@ -9,8 +9,14 @@ import Types
 allTests :: Test
 allTests = TestList
   [ test_replaceDoubleDash
+  , test_mangleAnchorPunctuation
   , test_joinLinkText
   ]
+
+test_mangleAnchorPunctuation :: Test
+test_mangleAnchorPunctuation = TestCase $ do
+  assertBool "" $ mangleAnchorPunctuation "!-!-!" == "--"
+  assertBool "" $ mangleAnchorPunctuation "--a-!-b-- " == "a--b-"
 
 test_replaceDoubleDash :: Test
 test_replaceDoubleDash = TestCase $ do
