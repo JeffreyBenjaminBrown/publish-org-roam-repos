@@ -75,22 +75,22 @@ test_parseFile = TestCase $ do
   let the_lines = case e_the_lines of
         Right x -> x
         Left _  -> undefined -- impossible; see previous assertion
-  assertBool "1"  $ the_lines !! 0 == (1, Line_PropsStart)
-  assertBool "2"  $ the_lines !! 1 == (2, Line_URI "1")
-  assertBool "3"  $ the_lines !! 2 == (3, Line_PropsEnd)
-  assertBool "4"  $ the_lines !! 3 == (4, Line_Title " tiny test file")
+  assertBool "1"  $ the_lines !! 0 == Line_PropsStart
+  assertBool "2"  $ the_lines !! 1 == Line_URI "1"
+  assertBool "3"  $ the_lines !! 2 == Line_PropsEnd
+  assertBool "4"  $ the_lines !! 3 == Line_Title " tiny test file"
   assertBool "5"  $ the_lines !! 4 ==
-    (5, Line_Headline $ Headline 1
-        [ NormalText_text "A link to ",
-          NormalText_link $ Link  "1" "this file",
-          NormalText_text " and a link to ",
-          NormalText_link $ Link "2" "the headline below" ] )
+    ( Line_Headline $ Headline 1
+      [ NormalText_text "A link to ",
+        NormalText_link $ Link  "1" "this file",
+        NormalText_text " and a link to ",
+        NormalText_link $ Link "2" "the headline below" ] )
   assertBool "6"  $ the_lines !! 5 ==
-    (6, Line_Headline $ Headline 2
-        [NormalText_text "an imaginary headline"] )
-  assertBool "7"  $ the_lines !! 6 == (7, Line_PropsStart)
-  assertBool "8"  $ the_lines !! 7 == (8, Line_URI "2")
-  assertBool "9"  $ the_lines !! 8 == (9, Line_PropsEnd)
+    ( Line_Headline $ Headline 2
+      [NormalText_text "an imaginary headline"] )
+  assertBool "7"  $ the_lines !! 6 == Line_PropsStart
+  assertBool "8"  $ the_lines !! 7 == Line_URI "2"
+  assertBool "9"  $ the_lines !! 8 == Line_PropsEnd
   assertBool "10" $ the_lines !! 9 ==
-    (10, Line_Body [NormalText_text "   With some text."] )
-  assertBool "11" $ the_lines !! 10 == (11, Line_Body [])
+    Line_Body [NormalText_text "   With some text."]
+  assertBool "11" $ the_lines !! 10 == Line_Body []

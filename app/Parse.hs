@@ -71,8 +71,9 @@ lineParser = choice [ try propertiesStartParser
 
 parseFile :: FilePath -> IO ( Either
                                (ParseErrorBundle String Void)
-                               [(LineNumber, Line)] )
+                               [Line] )
 parseFile filename = do
   input <- readFile filename
-  return $ zip [1..] <$> ( parse (sepBy lineParser newline)
-                           filename input )
+  return ( parse
+           (sepBy lineParser newline)
+           filename input )

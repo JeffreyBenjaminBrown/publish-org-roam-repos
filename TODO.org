@@ -1,40 +1,3 @@
-* convert
-  node_line :: Maybe Int
-  to node_headline :: Mauybe Headline
-* rewrite links
-** links in headlines are replaced with their nickname
-** syntax
-#+BEGIN_SRC text
-They look like this:
-  [[id:4274ee9a-8b13-4763-9719-f32dd7efbcea][Switzerland trip]]
-They should (probably) look like this:
-  [[URL][text]]
-And the URL should look like:
-  https://github.com/JeffreyBenjaminBrown/public-notes-in-org-roam-format/blob/master/filename.org
-#+END_SRC
-** must replace every match *within line* or even *across lines*
-* ? link to headlines rather than line numbers
-  and determine how Github will represent its anchor.
-** On Github, links to .org headlines work like links to .md headlines!
-*** They look like `URL#text-of-the-headline`.
-*** I haven't tested edge cases.
-    Weird punctuation, capitalization, space, etc.
-*** the procedure ChatGPT described
-**** initially
-     Here’s how you can do it:
-
-     Find or create the sub-headline: Each headline in an .org file has an automatically generated anchor, which is based on the text of the headline.
-
-     Format the anchor:
-         Lowercase all the characters.
-         Replace spaces and special characters (such as ?, !, @) with dashes (-).
-         Remove any punctuation like periods, commas, colons, etc.
-
-     Create the link: Use a relative link to the .org file followed by the anchor, prefixed by a #.
-*** duplicate headlines => "-n" suffixes, starting from 1
-**** ChatGPT explains
- If two headlines in the same .org file have the same text, GitHub generates unique anchors for each by appending incremental numbers to the duplicate anchors. The first occurrence of the headline will have a standard anchor based on the headline text, while subsequent occurrences of headlines with the same text will have -1, -2, etc., appended to their anchors.
-**** It's true (I tested).
 * ? think about leading # symbols, and others
 ** motivation
    In .org files, lines that start with # in Github will not render.
@@ -43,13 +6,8 @@ And the URL should look like:
 ** what to research
    What happens to lines that start with #? *? -? +?
    If there's leading space before them?
-* ? include backlinks at the bottom of each file
-* BLOCKED test headline_to_anchor using Github
-**** BLOCKED because I'm not using headline anchors yet
-  Try `data/anchors_test.org`.
-  Maybe add cases to Tests.Analyze for each headline.
-  Consider the case of a link in the headline.
-* DONE obsolete
+* ? include backlinks at (top?) of each file
+* probably obsolete
 ** Should it produce .md, or .org?
 *** org would be more natural
     Since Github has canned ways of showing org,
@@ -57,9 +15,6 @@ And the URL should look like:
 ** If producing .md, find a canned org-to-md conversion routine
    If it exists, it's probably easier to modify that
    than to start from scratch.
-** research links to headlines
-*** What is the format?
-*** Can it be done in a .org file on Github?
-*** Should I create a new ID, one that definitely works,
-    for each linked headline?
+** Should I create a new ID, one that definitely works,
+   for each linked headline?
 ** research Github URL formats
