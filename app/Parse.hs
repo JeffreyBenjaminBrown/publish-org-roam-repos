@@ -9,6 +9,19 @@ import           Text.Megaparsec.Char
 import Types
 
 
+parseFile :: FilePath -> IO ( Either
+                               (ParseErrorBundle String Void)
+                               [Line] )
+parseFile filename = do
+  input <- readFile filename
+  return ( parse
+           (sepBy lineParser newline)
+           filename input )
+
+
+-- * INTERNAL
+-- The rest of this is used only above and in tests.
+
 type Parser = Parsec Void String
 
 -- * Parsers for within header or body text
@@ -68,12 +81,3 @@ lineParser = choice [ try propertiesStartParser
                     , try titleParser
                     , try headlineParser
                     , bodyParser ]
-
-parseFile :: FilePath -> IO ( Either
-                               (ParseErrorBundle String Void)
-                               [Line] )
-parseFile filename = do
-  input <- readFile filename
-  return ( parse
-           (sepBy lineParser newline)
-           filename input )

@@ -24,6 +24,10 @@ headline_to_anchor :: Headline -> String
 headline_to_anchor = mangleAnchorPunctuation
                      . headline_to_visibleText
 
+
+-- * INTERNAL
+-- The rest of this is used only above and in tests.
+
 -- | This produces the string of characters that a human
 -- would see when viewing the line in org-mode --
 -- which, conveniently, is what Github uses to build an anchor.

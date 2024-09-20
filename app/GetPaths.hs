@@ -34,6 +34,10 @@ absFfilesAnyDepth
         then absFfilesAnyDepth extension path
         else return [path]
 
+
+-- * INTERNAL
+-- The rest of this is used only above and in tests.
+
 sanitizeRelativePath :: String -> String
 sanitizeRelativePath path =
   if (head path == '/')

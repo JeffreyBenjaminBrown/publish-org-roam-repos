@@ -7,6 +7,9 @@
 ** define duplicate repo filepaths
    locally and online
 ** populate the duplicate repos
+** search for broken links in output files
+   namely, the string
+   " -- broken link?]]"
 * ? think about leading # symbols, and others
 ** motivation
    In .org files, lines that start with # in Github will not render.

@@ -1,18 +1,39 @@
 module Rewrite where
 
 
+import qualified Data.List as L
 import qualified Data.Map as M
 import           System.FilePath (combine) -- ^ concatentate paths
 
 import Types
 
 
-index_and_link_to_text ::
-  M.Map URI Node -> Link -> Either String String
-index_and_link_to_text idx l@(Link uri _) = do
-  case M.lookup uri idx of
-    Nothing          -> Left  $ uri ++ " not found in index."
-    Just (n :: Node) -> Right $ joinLinkText n l
+rewrite_file :: M.Map URI Node -> [Line] -> String
+rewrite_file idx = L.intercalate "\n" . map f where
+  f :: Line -> String
+  f Line_PropsStart = ":PROPERTIES:"
+  f Line_PropsEnd   = ":END:"
+  f (Line_URI uri)  = ":ID:" ++ replicate 8 ' ' ++ uri
+  f (Line_Title t)  = "#+TITLE: " ++ t
+  f (Line_Headline (Headline n nts)) =
+    replicate n '*' ++ " " ++ normalTexts_to_string idx nts
+  f (Line_Body nts) =         normalTexts_to_string idx nts
+
+
+-- * INTERNAL
+-- The rest of this is used only above and in tests.
+
+normalTexts_to_string ::
+  M.Map URI Node -> [NormalText] -> String
+normalTexts_to_string idx = let
+  f :: NormalText -> String
+  f (NormalText_text s) = s
+  f (NormalText_link link@(Link uri name)) =
+     case M.lookup uri idx of
+       Just node -> joinLinkText node link
+       Nothing -> "[[:id:" ++ uri ++ "][" ++ name
+                  ++ " -- broken link?]]"
+  in concatMap f
 
 joinLinkText :: Node -- ^ Should share a URI with the Link.
              -> Link -- ^ Should share a URI with the Node.

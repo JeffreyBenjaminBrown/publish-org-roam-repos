@@ -8,8 +8,13 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_joinLinkText
+  [ test_rewrite_file
+  , test_joinLinkText
   ]
+
+test_rewrite_file :: Test
+test_rewrite_file = TestCase $ do
+  assertBool "" False
 
 test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do
