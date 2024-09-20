@@ -12,14 +12,9 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_rewrite_repos
-  , test_rewrite_file_pure
+  [ test_rewrite_file_pure
   , test_joinLinkText
   ]
-
-test_rewrite_repos :: Test
-test_rewrite_repos = TestCase $ do
-  assertBool "Did it work?" False
 
 test_rewrite_file_pure :: Test
 test_rewrite_file_pure = TestCase $ do

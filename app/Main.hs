@@ -28,6 +28,12 @@ import Test
 import Types
 
 
-main :: IO ([MPError], Index)
+-- | TODO: Parsing the file twice is inefficient.
+-- (@indexRepos@ and @rewrite_file@ both use @parseFile@.)
+main :: IO ([MPError],Index)
 main = do
-  rewrite_repos $ M.elems repos
+  (errs, idx) <- indexRepos $ M.elems repos
+  let whole_files :: [Node] -- as opposed to headlines
+      whole_files = filter (isNothing . node_anchor) $ M.elems idx
+  mapM_ (rewrite_file idx) $ whole_files
+  return (errs,idx)
