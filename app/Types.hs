@@ -34,15 +34,16 @@ data Line = Line_PropsStart
           | Line_Body [NormalText]
   deriving (Show, Eq)
 
-data Repo = Repo {
-  repo_local_source  :: FilePath, -- ^ absolute
-  repo_online_destination :: FilePath -- ^ absolute
+data Repo = Repo
+  { repo_local_source       :: FilePath -- ^ absolute
+  , repo_local_destination  :: FilePath -- ^ absolute
+  , repo_online_destination :: FilePath -- ^ absolute
   } deriving (Show, Eq)
 
-data Node = Node {
-  node_repo :: Repo,
-  node_file :: FilePath, -- ^ relative
-  node_anchor :: Maybe Anchor
+data Node = Node
+  { node_repo :: Repo
+  , node_file :: FilePath -- ^ relative
+  , node_anchor :: Maybe Anchor
     -- ^ Nothing if the URI is for the whole file.
     -- Just if the URI is for a headline within it.
   } deriving (Show, Eq)

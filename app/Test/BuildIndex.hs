@@ -18,7 +18,7 @@ allTests = TestList
 
 test_addFileToIndex :: Test
 test_addFileToIndex = TestCase $ do
-  let repo = Repo this_repo "online_path"
+  let repo = Repo this_repo "local_dest" "online_dest"
       path = "data/tiny_test_offline.org"
   result <- addFileToIndex repo path ([], mempty)
   assertBool "" $ result ==
@@ -39,7 +39,7 @@ test_indexFile = TestCase $ do
   let the_lines = case e_lines of
         Right x -> x
         Left _ -> undefined -- impossible, as asserted above
-      r = Repo "local" "online"
+      r = Repo "local_source" "local_dest" "online_dest"
   assertBool "" $ indexFile r "filepath" the_lines
     == [ ("1", Node { node_repo = r,
                       node_file = "filepath",
