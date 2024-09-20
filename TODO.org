@@ -1,3 +1,12 @@
+* remaining for MVP
+  serial
+** create a single output .org file
+   substituting URLs for all org-links,
+   and otherwise changing nothing
+** build index for all repos
+** define duplicate repo filepaths
+   locally and online
+** populate the duplicate repos
 * ? think about leading # symbols, and others
 ** motivation
    In .org files, lines that start with # in Github will not render.
