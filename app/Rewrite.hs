@@ -5,8 +5,17 @@ import qualified Data.List as L
 import qualified Data.Map as M
 import           System.FilePath (combine) -- ^ concatentate paths
 
+import BuildIndex (indexRepos)
 import Types
 
+
+rewrite_repos :: [Repo] -> IO ([MPError], Index)
+rewrite_repos repos = do
+  (errs, idx) <- indexRepos repos
+  -- Then go through each node in the Index,
+  -- parsing the file again (TODO: fix; this is inefficient)
+  -- and writing it to where it goes.
+  undefined
 
 -- | PITFALL: The result will differ from the input file
 -- in a few ways. As intended, links will be rewritten.

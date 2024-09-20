@@ -2,9 +2,6 @@
 
 module Main where
 
-import System.Directory (listDirectory)
-
-
 -- All the external imports used anywhere in this repo.
 -- To update, run this at the command line:
 --   grep -oP '^import *\s+\K[A-Z][A-Za-z_\.]*' -r . | grep ":.*" -o | sort | uniq
@@ -31,6 +28,6 @@ import Test
 import Types
 
 
-main :: IO ()
+main :: IO ([MPError], Index)
 main = do
-    print "hello"
+  rewrite_repos $ M.elems repos
