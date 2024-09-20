@@ -1,5 +1,6 @@
 module BuildIndex where
 
+import           Control.Monad (foldM)
 import qualified Data.Map as M
 import           System.FilePath (combine) -- to join paths
 
@@ -8,6 +9,21 @@ import GetPaths
 import Parse (parseFile)
 import Types
 
+
+indexRepos :: [Repo] -> IO ([MPError], Index)
+indexRepos repos = foldM addRepoToIndex mempty repos
+
+addRepoToIndex ::    ([MPError], Index)
+               -> Repo
+               -> IO ([MPError], Index)
+addRepoToIndex acc repo = do
+  relativePaths :: [FilePath] <-
+    relFfilesAnyDepth ".org" $ repo_local_path repo
+  let doFile :: ([MPError],Index)
+             -> FilePath
+             -> IO          ([MPError],Index)
+      doFile acc relpath = addFileToIndex repo relpath acc
+  foldM doFile acc relativePaths
 
 addFileToIndex :: Repo
                -> FilePath -- ^ relative to the repo

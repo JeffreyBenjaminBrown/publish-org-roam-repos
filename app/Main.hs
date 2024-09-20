@@ -8,6 +8,7 @@ import System.Directory (listDirectory)
 -- All the external imports used anywhere in this repo.
 -- To update, run this at the command line:
 --   grep -oP '^import *\s+\K[A-Z][A-Za-z_\.]*' -r . | grep ":.*" -o | sort | uniq
+import           Control.Monad (foldM)
 import           Data.Char (isSpace,isAlphaNum, toLower)
 import qualified Data.List as L
 import qualified Data.Map as M
@@ -20,6 +21,7 @@ import           Text.Megaparsec.Char
 import           Text.Regex
 import           Text.Regex.TDFA ((=~))
 
+import Config
 import GetPaths
 import GPT
 import BuildIndex
