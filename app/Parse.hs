@@ -9,9 +9,7 @@ import           Text.Megaparsec.Char
 import Types
 
 
-parseFile :: FilePath -> IO ( Either
-                              (ParseErrorBundle String Void)
-                              [Line] )
+parseFile :: FilePath -> IO ( Either MPError [Line] )
 parseFile filename = do
   input <- readFile filename
   return ( parse

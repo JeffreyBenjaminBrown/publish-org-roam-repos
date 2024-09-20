@@ -1,10 +1,29 @@
 module BuildIndex where
 
 import qualified Data.Map as M
+import           System.FilePath (combine) -- to join paths
 
 import Anchor
+import GetPaths
+import Parse (parseFile)
 import Types
 
+
+addFileToIndex :: Repo
+               -> FilePath -- ^ relative to the repo
+               ->    ([MPError], Index)
+               -> IO ([MPError], Index)
+addFileToIndex repo filepath (errs, idx) = do
+  e_lines :: Either MPError [Line] <-
+    parseFile $ combine (repo_local_path repo) filepath
+  case e_lines of
+    Left err -> return (err:errs,idx)
+    Right (the_lines :: [Line]) -> do
+      let unodes :: [(URI,Node)] =
+            indexFile repo filepath the_lines
+          myInsert :: (URI,Node) -> Index -> Index
+          myInsert (u,n) = M.insert u n
+          in return (errs, foldr myInsert idx unodes)
 
 indexFile :: Repo -> FilePath -> [Line] -> [(URI,Node)]
 indexFile repo filepath the_lines =

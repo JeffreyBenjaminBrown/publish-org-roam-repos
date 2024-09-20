@@ -10,8 +10,13 @@ import Types
 
 allTests :: Test
 allTests = TestList
-  [ test_indexFile
+  [ test_addFileToIndex
+  , test_indexFile
   ]
+
+test_addFileToIndex :: Test
+test_addFileToIndex = TestCase $ do
+  assertBool "" False
 
 test_indexFile :: Test
 test_indexFile = TestCase $ do

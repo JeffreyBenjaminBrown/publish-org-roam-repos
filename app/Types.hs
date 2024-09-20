@@ -1,5 +1,9 @@
 module Types where
 
+import Data.Map (Map)
+import Data.Void
+import Text.Megaparsec (ParseErrorBundle)
+
 
 -- * In use
 
@@ -8,6 +12,8 @@ type LineNumber = Int
 type Anchor = String {- ^ In a URL like https://github.com/user/repo/blob/main/file.org#abc, the part after the # is the "anchor". It might be absent. -}
 
 type URI = String -- ^ Unique org-roam identifiers.
+
+type MPError = ParseErrorBundle String Void
 
 data Link = Link URI String
   deriving (Show, Eq)
@@ -40,3 +46,5 @@ data Node = Node {
     -- ^ Nothing if the URI is for the whole file.
     -- Just if the URI is for a headline within it.
   } deriving (Show, Eq)
+
+type Index = Map URI Node
