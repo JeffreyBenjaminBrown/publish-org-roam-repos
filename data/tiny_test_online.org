@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       1
+:END:
+#+title: tiny test file
+* A link to [[www.site.com/user/repo/blob/master/this.org][this file]] and a link to [[www.site.com/user/repo/blob/master/this.org#an-imaginary-headline][the headline below]]
+** an imaginary headline
+   :PROPERTIES:
+   :ID:       2
+   :END:
+   With some text.

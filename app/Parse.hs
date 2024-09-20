@@ -10,8 +10,8 @@ import Types
 
 
 parseFile :: FilePath -> IO ( Either
-                               (ParseErrorBundle String Void)
-                               [Line] )
+                              (ParseErrorBundle String Void)
+                              [Line] )
 parseFile filename = do
   input <- readFile filename
   return ( parse

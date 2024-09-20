@@ -15,7 +15,7 @@ allTests = TestList
 
 test_indexFile :: Test
 test_indexFile = TestCase $ do
-  e_lines <- parseFile "data/tiny_test.org"
+  e_lines <- parseFile "data/tiny_test_offline.org"
   assertBool "" $ isRight e_lines
   let the_lines = case e_lines of
         Right x -> x

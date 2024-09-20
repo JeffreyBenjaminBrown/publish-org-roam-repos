@@ -70,7 +70,7 @@ test_headlineParser = TestCase $ do
 
 test_parseFile :: Test
 test_parseFile = TestCase $ do
-  e_the_lines <- parseFile "data/tiny_test.org"
+  e_the_lines <- parseFile "data/tiny_test_offline.org"
   assertBool "" $ isRight e_the_lines
   let the_lines = case e_the_lines of
         Right x -> x
