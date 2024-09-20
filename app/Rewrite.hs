@@ -8,13 +8,19 @@ import           System.FilePath (combine) -- ^ concatentate paths
 import Types
 
 
+-- | PITFALL: The result will differ from the input file
+-- in a few ways. As intended, links will be rewritten.
+-- But leading and trailing space in :PROPERTIES: drawers
+-- will be lost in PROPERTIES, END and ID lines,
+-- and the #+title will always be lowercase,
+-- whereas occasionally it is all caps in my original data.
 rewrite_file :: M.Map URI Node -> [Line] -> String
 rewrite_file idx = L.intercalate "\n" . map f where
   f :: Line -> String
   f Line_PropsStart = ":PROPERTIES:"
   f Line_PropsEnd   = ":END:"
-  f (Line_URI uri)  = ":ID:" ++ replicate 8 ' ' ++ uri
-  f (Line_Title t)  = "#+TITLE: " ++ t
+  f (Line_URI uri)  = ":ID:" ++ replicate 7 ' ' ++ uri
+  f (Line_Title t)  = "#+title:" ++ t
   f (Line_Headline (Headline n nts)) =
     replicate n '*' ++ " " ++ normalTexts_to_string idx nts
   f (Line_Body nts) =         normalTexts_to_string idx nts

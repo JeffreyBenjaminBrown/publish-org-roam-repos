@@ -2,6 +2,10 @@ module Test.Rewrite where
 
 import Test.HUnit
 
+import qualified Data.Map as M
+import           Text.Regex
+
+import Parse (parseFile)
 import Rewrite
 import Types
 
@@ -14,7 +18,28 @@ allTests = TestList
 
 test_rewrite_file :: Test
 test_rewrite_file = TestCase $ do
-  assertBool "" False
+  goalFile <- readFile  "data/tiny_test_online.org"
+  e_lines  <- parseFile "data/tiny_test_offline.org"
+  let the_lines = either (const []) id e_lines
+      repo = Repo { repo_name = "repo"
+                  , repo_local_path = undefined
+                  , repo_online_path = "www.site.com/user/repo" }
+      idx = M.fromList
+        [ ("1", Node { node_uri = "1"
+                     , node_repo = repo
+                     , node_file = "this.org"
+                     , node_anchor = Nothing } )
+        , ("2", Node { node_uri = "2"
+                     , node_repo = repo
+                     , node_file = "this.org"
+                     , node_anchor = Just $ "an-imaginary-headline"
+                     } ) ]
+      drop_space_pre_colon :: String -> String
+      drop_space_pre_colon s = subRegex (mkRegex "^ *:") s ":"
+  assertBool "" $ not $ null the_lines
+  assertBool "" $ (==)
+    (map drop_space_pre_colon $ lines $ rewrite_file idx the_lines)
+    (map drop_space_pre_colon $ lines goalFile)
 
 test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do
