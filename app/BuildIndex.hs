@@ -16,14 +16,14 @@ indexRepos repos = foldM addRepoToIndex mempty repos
 addRepoToIndex ::    ([MPError], Index)
                -> Repo
                -> IO ([MPError], Index)
-addRepoToIndex acc repo = do
+addRepoToIndex _acc repo = do
   relativePaths :: [FilePath] <-
     relFfilesAnyDepth ".org" $ repo_local_source repo
   let doFile :: ([MPError],Index)
              -> FilePath
              -> IO          ([MPError],Index)
-      doFile acc relpath = addFileToIndex repo relpath acc
-  foldM doFile acc relativePaths
+      doFile _acc relpath = addFileToIndex repo relpath _acc
+  foldM doFile _acc relativePaths
 
 addFileToIndex :: Repo
                -> FilePath -- ^ relative to the repo
