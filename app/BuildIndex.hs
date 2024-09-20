@@ -18,7 +18,7 @@ addRepoToIndex ::    ([MPError], Index)
                -> IO ([MPError], Index)
 addRepoToIndex acc repo = do
   relativePaths :: [FilePath] <-
-    relFfilesAnyDepth ".org" $ repo_local_path repo
+    relFfilesAnyDepth ".org" $ repo_local_source repo
   let doFile :: ([MPError],Index)
              -> FilePath
              -> IO          ([MPError],Index)
@@ -31,7 +31,7 @@ addFileToIndex :: Repo
                -> IO ([MPError], Index)
 addFileToIndex repo filepath (errs, idx) = do
   e_lines :: Either MPError [Line] <-
-    parseFile $ combine (repo_local_path repo) filepath
+    parseFile $ combine (repo_local_source repo) filepath
   case e_lines of
     Left err -> return (err:errs,idx)
     Right (the_lines :: [Line]) -> do

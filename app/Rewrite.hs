@@ -50,7 +50,7 @@ joinLinkText n (Link _ name) =
       suffix = maybe "" ("#" ++) $ node_anchor n
   in concat
      [ "[["
-     , foldl1 combine [ (repo_online_path r)
+     , foldl1 combine [ (repo_online_destination r)
                       , "blob/master"
                       , p ]
      , suffix
