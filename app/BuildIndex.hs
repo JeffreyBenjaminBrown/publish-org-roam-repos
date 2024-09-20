@@ -60,4 +60,4 @@ indexFile repo filepath the_lines =
     go (Line_Body _:rest) idx nodes =
       go rest idx nodes
 
-  in go the_lines initialIndexer []
+  in reverse $ go the_lines initialIndexer []

@@ -22,13 +22,13 @@ test_indexFile = TestCase $ do
         Left _ -> undefined -- impossible, as asserted above
       r = Repo "nickname" "local" "online"
   assertBool "" $ indexFile r "filepath" the_lines
-    == [Node { node_uri = "2",
-               node_repo = r,
-               node_file = "filepath",
-               node_headline =
-                  Just $ Headline 2
-                  [ NormalText_text "an imaginary headline" ] },
-        Node { node_uri = "1",
-               node_repo = r,
-               node_file = "filepath",
-               node_headline = Nothing}]
+    == [ Node { node_uri = "1",
+                node_repo = r,
+                node_file = "filepath",
+                node_headline = Nothing }
+       , Node { node_uri = "2",
+                node_repo = r,
+                node_file = "filepath",
+                node_headline =
+                   Just $ Headline 2
+                   [ NormalText_text "an imaginary headline" ] } ]
