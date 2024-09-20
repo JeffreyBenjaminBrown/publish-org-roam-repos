@@ -13,6 +13,10 @@ import Types
 indexRepos :: [Repo] -> IO ([MPError], Index)
 indexRepos repos = foldM addRepoToIndex mempty repos
 
+
+-- * INTERNAL
+-- The rest of this is used only above and in tests.
+
 addRepoToIndex ::    ([MPError], Index)
                -> Repo
                -> IO ([MPError], Index)
@@ -82,10 +86,6 @@ indexFile repo filepath the_lines =
       go rest idx unodes
 
   in reverse $ go the_lines initialIndexer []
-
-
--- * INTERNAL
--- The rest of this is used only above and in tests.
 
 -- | The state of the indexer.
 data Indexer = Indexer {

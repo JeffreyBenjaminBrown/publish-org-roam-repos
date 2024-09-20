@@ -14,7 +14,7 @@ import Types
 -- will be lost in PROPERTIES, END and ID lines,
 -- and the #+title will always be lowercase,
 -- whereas occasionally it is all caps in my original data.
-rewrite_file :: M.Map URI Node -> [Line] -> String
+rewrite_file :: Index -> [Line] -> String
 rewrite_file idx = L.intercalate "\n" . map f where
   f :: Line -> String
   f Line_PropsStart = ":PROPERTIES:"
@@ -30,7 +30,7 @@ rewrite_file idx = L.intercalate "\n" . map f where
 -- The rest of this is used only above and in tests.
 
 normalTexts_to_string ::
-  M.Map URI Node -> [NormalText] -> String
+  Index -> [NormalText] -> String
 normalTexts_to_string idx = let
   f :: NormalText -> String
   f (NormalText_text s) = s
