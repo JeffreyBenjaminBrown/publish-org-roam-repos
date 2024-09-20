@@ -5,17 +5,27 @@ import qualified Data.List as L
 import qualified Data.Map as M
 import           System.FilePath (combine) -- ^ concatentate paths
 
-import BuildIndex (indexRepos)
+import Parse (parseFile)
 import Types
 
 
-rewrite_repos :: [Repo] -> IO [MPError]
-rewrite_repos repos = do
-  (errs, idx) <- indexRepos repos
-  -- Then go through each node in the Index,
-  -- parsing the file again (TODO: Fix; one pass would be better)
-  -- and writing it to where it goes.
-  M.elems idx
+{- | PITFALL: This ignores the possibility of parse errors. That's safe, because if the node exists, the file was already parsed earlier. -}
+rewrite_file :: Index -> Node -> IO ()
+rewrite_file idx node = do
+  let repo = node_repo node
+  the_lines :: [Line] <-
+    either (const undefined) id <$>
+    parseFile ( combine (repo_local_source repo)
+                $ node_file node )
+  let outfile = rewrite_file_pure idx the_lines
+      dest = ( combine (repo_local_destination repo)
+               $ node_file node )
+  writeFile dest outfile
+
+
+-- * INTERNAL
+-- The rest of this is used only above and in tests.
+
 
 -- | PITFALL: The result will differ from the input file
 -- in a few ways. As intended, links will be rewritten.
@@ -33,10 +43,6 @@ rewrite_file_pure idx = L.intercalate "\n" . map f where
   f (Line_Headline (Headline n nts)) =
     replicate n '*' ++ " " ++ normalTexts_to_string idx nts
   f (Line_Body nts) =         normalTexts_to_string idx nts
-
-
--- * INTERNAL
--- The rest of this is used only above and in tests.
 
 normalTexts_to_string ::
   Index -> [NormalText] -> String

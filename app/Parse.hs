@@ -33,9 +33,10 @@ linkParser = do
   _    <- string "]]"
   return $ NormalText_link $ Link uri name
 
+-- | todo: understand @notFollowedBy@, used herein.
 ordinaryTextParser :: Parser NormalText
 ordinaryTextParser = NormalText_text <$>
-  some ( notFollowedBy -- TODO: Understand `notFollowedBy`.
+  some ( notFollowedBy
          linkParser
          >> anySingleBut '\n')
 

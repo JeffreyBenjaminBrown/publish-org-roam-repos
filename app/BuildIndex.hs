@@ -48,7 +48,7 @@ addFileToIndex repo filepath (errs, idx) = do
 indexFile :: Repo -> FilePath -> [Line] -> [(URI,Node)]
 indexFile repo filepath the_lines =
   let
-    pn = Node -- ^ Prototype for Nodes created in `go`
+    pn = Node -- ^ Prototype for Nodes created in @go@
          { node_repo   = repo
          , node_file   = filepath
          , node_anchor = undefined }

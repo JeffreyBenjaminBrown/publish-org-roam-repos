@@ -8,7 +8,7 @@ import Text.Regex.TDFA ((=~)) -- todo ? This could be replaced with something fr
 -- | do; fs <- relFfilesAnyDepth ".hs" "."; mapM_ putStrLn fs
 relFfilesAnyDepth :: String -> FilePath -> IO [FilePath]
 relFfilesAnyDepth extension dir =
-  map ( sanitizeRelativePath -- Necessary because dropping the length of `dir` might leave the result starting with '/', if `dir` does not include the trailing '/'.
+  map ( sanitizeRelativePath -- Necessary because dropping the length of @dir@ might leave the result starting with '/', if @dir@ does not include the trailing '/'.
         . ( drop $ length dir ) )
   <$> absFfilesAnyDepth extension dir
 

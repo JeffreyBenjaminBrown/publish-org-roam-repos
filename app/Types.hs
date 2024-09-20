@@ -41,8 +41,8 @@ data Repo = Repo
   } deriving (Show, Eq)
 
 data Node = Node
-  { node_repo :: Repo
-  , node_file :: FilePath -- ^ relative
+  { node_repo   :: Repo
+  , node_file   :: FilePath -- ^ relative
   , node_anchor :: Maybe Anchor
     -- ^ Nothing if the URI is for the whole file.
     -- Just if the URI is for a headline within it.
