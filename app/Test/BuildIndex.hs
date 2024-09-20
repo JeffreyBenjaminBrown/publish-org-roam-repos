@@ -1,9 +1,11 @@
 module Test.BuildIndex where
 
-import Data.Either (isRight)
-import Test.HUnit
+import           Data.Either (isRight)
+import qualified Data.Map as M
+import           Test.HUnit
 
 import BuildIndex
+import Config (this_repo)
 import Parse (parseFile)
 import Types
 
@@ -16,7 +18,19 @@ allTests = TestList
 
 test_addFileToIndex :: Test
 test_addFileToIndex = TestCase $ do
-  assertBool "" False
+  let repo = Repo this_repo "online_path"
+      path = "data/tiny_test_offline.org"
+  result <- addFileToIndex repo path ([], mempty)
+  assertBool "" $ result ==
+    ( []
+    , M.fromList
+      [ ("1", Node { node_repo = repo
+                   , node_file = path
+                   , node_anchor = Nothing } )
+      , ("2", Node { node_repo = repo
+                   , node_file = path
+                   , node_anchor = Just "an-imaginary-headline"
+                   } ) ] )
 
 test_indexFile :: Test
 test_indexFile = TestCase $ do
