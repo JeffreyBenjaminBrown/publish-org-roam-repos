@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       0
+:END:
+#+title: file with duplicate headlines
+* a duplicated headline
+  :PROPERTIES:
+  :ID:       1
+  :END:
+* a duplicated headline
+  :PROPERTIES:
+  :ID:       2
+  :END:

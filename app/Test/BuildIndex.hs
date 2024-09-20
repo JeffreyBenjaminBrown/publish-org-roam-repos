@@ -15,9 +15,9 @@ allTests = TestList
 
 test_indexFile :: Test
 test_indexFile = TestCase $ do
-  e_the_lines <- parseFile "data/tiny_test.org"
-  assertBool "" $ isRight e_the_lines
-  let the_lines = case e_the_lines of
+  e_lines <- parseFile "data/tiny_test.org"
+  assertBool "" $ isRight e_lines
+  let the_lines = case e_lines of
         Right x -> x
         Left _ -> undefined -- impossible, as asserted above
       r = Repo "nickname" "local" "online"
@@ -30,3 +30,22 @@ test_indexFile = TestCase $ do
                 node_repo = r,
                 node_file = "filepath",
                 node_anchor = Just "an-imaginary-headline" } ]
+
+  e_lines_2 <- parseFile "data/duplicate_anchors.org"
+  assertBool "" $ isRight e_lines_2
+  let the_lines_2 = case e_lines_2 of
+        Right x -> x
+        Left _ -> undefined -- impossible, as asserted above
+  assertBool "" $ indexFile r "filepath" the_lines_2
+    == [ Node { node_uri = "0",
+                node_repo = r,
+                node_file = "filepath",
+                node_anchor = Nothing }
+       , Node { node_uri = "1",
+                node_repo = r,
+                node_file = "filepath",
+                node_anchor = Just "a-duplicated-headline" }
+       , Node { node_uri = "2",
+                node_repo = r,
+                node_file = "filepath",
+                node_anchor = Just "a-duplicated-headline-1" } ]
