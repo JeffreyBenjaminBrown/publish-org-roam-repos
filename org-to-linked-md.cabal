@@ -21,6 +21,7 @@ executable org-to-linked-md
     other-modules:
       Anchor,
       BuildIndex,
+      Config,
       GPT,
       GetPaths,
       Parse,

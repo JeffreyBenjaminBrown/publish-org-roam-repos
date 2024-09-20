@@ -1,13 +1,13 @@
 module Types where
 
-import Data.Map (Map)
-
 
 -- * In use
 
 type LineNumber = Int
 
-type URI = String
+type Anchor = String {- ^ In a URL like https://github.com/user/repo/blob/main/file.org#abc, the part after the # is the "anchor". It might be absent. -}
+
+type URI = String -- ^ Unique org-roam identifiers.
 
 data Link = Link URI String
   deriving (Show, Eq)
@@ -16,6 +16,7 @@ data NormalText = NormalText_text String
                 | NormalText_link Link
   deriving (Show, Eq)
 
+-- ^ An org headline.
 data Headline = Headline Int [NormalText]
   deriving (Show, Eq)
 
@@ -37,9 +38,7 @@ data Node = Node {
   node_uri  :: URI,
   node_repo :: Repo,
   node_file :: FilePath, -- ^ relative
-  node_headline :: Maybe Headline
+  node_anchor :: Maybe Anchor
     -- ^ Nothing if the URI is for the whole file.
     -- Just if the URI is for a headline within it.
   } deriving (Show, Eq)
-
-type Index = Map URI Node

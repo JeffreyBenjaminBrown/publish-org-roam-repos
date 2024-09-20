@@ -25,10 +25,8 @@ test_indexFile = TestCase $ do
     == [ Node { node_uri = "1",
                 node_repo = r,
                 node_file = "filepath",
-                node_headline = Nothing }
+                node_anchor = Nothing }
        , Node { node_uri = "2",
                 node_repo = r,
                 node_file = "filepath",
-                node_headline =
-                   Just $ Headline 2
-                   [ NormalText_text "an imaginary headline" ] } ]
+                node_anchor = Just "an-imaginary-headline" } ]

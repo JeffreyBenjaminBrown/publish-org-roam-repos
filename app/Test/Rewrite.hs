@@ -20,10 +20,8 @@ test_joinLinkText = TestCase $ do
               , repo_local_path = undefined
               , repo_online_path = "https://github.com/user/repo" }
           , node_file = "filename.org"
-          , node_headline = Nothing }
-      m = n { node_headline =
-                Just $ Headline undefined
-                [ NormalText_text "a" ] }
+          , node_anchor = Nothing }
+      m = n { node_anchor = Just "a" }
       l = Link undefined "the displayed text"
   assertBool "" $ joinLinkText n l ==
     "[[https://github.com/user/repo/blob/master/filename.org][the displayed text]]"
