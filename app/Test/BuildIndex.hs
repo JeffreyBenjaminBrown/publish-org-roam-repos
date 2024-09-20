@@ -20,7 +20,7 @@ test_indexFile = TestCase $ do
   let the_lines = case e_lines of
         Right x -> x
         Left _ -> undefined -- impossible, as asserted above
-      r = Repo "nickname" "local" "online"
+      r = Repo "local" "online"
   assertBool "" $ indexFile r "filepath" the_lines
     == [ Node { node_uri = "1",
                 node_repo = r,

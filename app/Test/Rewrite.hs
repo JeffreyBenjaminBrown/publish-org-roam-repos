@@ -21,8 +21,7 @@ test_rewrite_file = TestCase $ do
   goalFile <- readFile  "data/tiny_test_online.org"
   e_lines  <- parseFile "data/tiny_test_offline.org"
   let the_lines = either (const []) id e_lines
-      repo = Repo { repo_name = "repo"
-                  , repo_local_path = undefined
+      repo = Repo { repo_local_path = undefined
                   , repo_online_path = "www.site.com/user/repo" }
       idx = M.fromList
         [ ("1", Node { node_uri = "1"
@@ -45,9 +44,8 @@ test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do
   let n = Node
           { node_uri = undefined
-          , node_repo = Repo {
-              repo_name = undefined
-              , repo_local_path = undefined
+          , node_repo = Repo
+              { repo_local_path = undefined
               , repo_online_path = "https://github.com/user/repo" }
           , node_file = "filename.org"
           , node_anchor = Nothing }
