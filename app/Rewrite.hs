@@ -9,13 +9,13 @@ import BuildIndex (indexRepos)
 import Types
 
 
-rewrite_repos :: [Repo] -> IO ([MPError], Index)
+rewrite_repos :: [Repo] -> IO [MPError]
 rewrite_repos repos = do
   (errs, idx) <- indexRepos repos
   -- Then go through each node in the Index,
-  -- parsing the file again (TODO: fix; this is inefficient)
+  -- parsing the file again (TODO: Fix; one pass would be better)
   -- and writing it to where it goes.
-  undefined
+  M.elems idx
 
 -- | PITFALL: The result will differ from the input file
 -- in a few ways. As intended, links will be rewritten.
@@ -23,8 +23,8 @@ rewrite_repos repos = do
 -- will be lost in PROPERTIES, END and ID lines,
 -- and the #+title will always be lowercase,
 -- whereas occasionally it is all caps in my original data.
-rewrite_file :: Index -> [Line] -> String
-rewrite_file idx = L.intercalate "\n" . map f where
+rewrite_file_pure :: Index -> [Line] -> String
+rewrite_file_pure idx = L.intercalate "\n" . map f where
   f :: Line -> String
   f Line_PropsStart = ":PROPERTIES:"
   f Line_PropsEnd   = ":END:"

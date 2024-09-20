@@ -13,7 +13,7 @@ import Types
 allTests :: Test
 allTests = TestList
   [ test_rewrite_repos
-  , test_rewrite_file
+  , test_rewrite_file_pure
   , test_joinLinkText
   ]
 
@@ -21,8 +21,8 @@ test_rewrite_repos :: Test
 test_rewrite_repos = TestCase $ do
   assertBool "Did it work?" False
 
-test_rewrite_file :: Test
-test_rewrite_file = TestCase $ do
+test_rewrite_file_pure :: Test
+test_rewrite_file_pure = TestCase $ do
   goalFile <- readFile  "data/tiny_test_online.org"
   e_lines  <- parseFile "data/tiny_test_offline.org"
   let the_lines = either (const []) id e_lines
@@ -42,7 +42,8 @@ test_rewrite_file = TestCase $ do
       drop_space_pre_colon s = subRegex (mkRegex "^ *:") s ":"
   assertBool "" $ not $ null the_lines
   assertBool "" $ (==)
-    (map drop_space_pre_colon $ lines $ rewrite_file idx the_lines)
+    (map drop_space_pre_colon $ lines ( rewrite_file_pure
+                                        idx the_lines) )
     (map drop_space_pre_colon $ lines goalFile)
 
 test_joinLinkText :: Test
