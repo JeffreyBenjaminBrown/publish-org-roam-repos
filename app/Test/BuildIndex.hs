@@ -22,14 +22,13 @@ test_indexFile = TestCase $ do
         Left _ -> undefined -- impossible, as asserted above
       r = Repo "local" "online"
   assertBool "" $ indexFile r "filepath" the_lines
-    == [ Node { node_uri = "1",
-                node_repo = r,
-                node_file = "filepath",
-                node_anchor = Nothing }
-       , Node { node_uri = "2",
-                node_repo = r,
-                node_file = "filepath",
-                node_anchor = Just "an-imaginary-headline" } ]
+    == [ ("1", Node { node_repo = r,
+                      node_file = "filepath",
+                      node_anchor = Nothing } )
+       , ("2", Node { node_repo = r,
+                      node_file = "filepath",
+                      node_anchor = Just "an-imaginary-headline"
+                    } ) ]
 
   e_lines_2 <- parseFile "data/duplicate_anchors.org"
   assertBool "" $ isRight e_lines_2
@@ -37,15 +36,13 @@ test_indexFile = TestCase $ do
         Right x -> x
         Left _ -> undefined -- impossible, as asserted above
   assertBool "" $ indexFile r "filepath" the_lines_2
-    == [ Node { node_uri = "0",
-                node_repo = r,
-                node_file = "filepath",
-                node_anchor = Nothing }
-       , Node { node_uri = "1",
-                node_repo = r,
-                node_file = "filepath",
-                node_anchor = Just "a-duplicated-headline" }
-       , Node { node_uri = "2",
-                node_repo = r,
-                node_file = "filepath",
-                node_anchor = Just "a-duplicated-headline-1" } ]
+    == [ ("0", Node { node_repo = r,
+                      node_file = "filepath",
+                      node_anchor = Nothing } )
+       , ("1", Node { node_repo = r,
+                      node_file = "filepath",
+                      node_anchor = Just "a-duplicated-headline" } )
+       , ("2", Node { node_repo = r,
+                      node_file = "filepath",
+                      node_anchor = Just "a-duplicated-headline-1"
+                    } ) ]

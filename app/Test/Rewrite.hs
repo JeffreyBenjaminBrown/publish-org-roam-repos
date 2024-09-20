@@ -24,12 +24,10 @@ test_rewrite_file = TestCase $ do
       repo = Repo { repo_local_path = undefined
                   , repo_online_path = "www.site.com/user/repo" }
       idx = M.fromList
-        [ ("1", Node { node_uri = "1"
-                     , node_repo = repo
+        [ ("1", Node { node_repo = repo
                      , node_file = "this.org"
                      , node_anchor = Nothing } )
-        , ("2", Node { node_uri = "2"
-                     , node_repo = repo
+        , ("2", Node { node_repo = repo
                      , node_file = "this.org"
                      , node_anchor = Just $ "an-imaginary-headline"
                      } ) ]
@@ -43,8 +41,7 @@ test_rewrite_file = TestCase $ do
 test_joinLinkText :: Test
 test_joinLinkText = TestCase $ do
   let n = Node
-          { node_uri = undefined
-          , node_repo = Repo
+          { node_repo = Repo
               { repo_local_path = undefined
               , repo_online_path = "https://github.com/user/repo" }
           , node_file = "filename.org"

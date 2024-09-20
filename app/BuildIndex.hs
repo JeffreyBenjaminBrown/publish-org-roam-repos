@@ -6,48 +6,45 @@ import Anchor
 import Types
 
 
-indexFile :: Repo -> FilePath -> [Line] -> [Node]
+indexFile :: Repo -> FilePath -> [Line] -> [(URI,Node)]
 indexFile repo filepath the_lines =
   let
     pn = Node -- ^ Prototype for Nodes created in `go`
          { node_repo   = repo
          , node_file   = filepath
-         , node_uri    = undefined
          , node_anchor = undefined }
 
-    go :: [Line] -> Indexer -> [Node] -> [Node]
-    go [] _ nodes = nodes
-    go (Line_PropsStart:rest) idx nodes =
+    go :: [Line] -> Indexer -> [(URI,Node)] -> [(URI,Node)]
+    go [] _ unodes = unodes
+    go (Line_PropsStart:rest) idx unodes =
       let idx' = idx {in_props_drawer = True}
-      in go rest idx' nodes
-    go (Line_PropsEnd:rest) idx nodes =
+      in go rest idx' unodes
+    go (Line_PropsEnd:rest) idx unodes =
       let idx' = idx {in_props_drawer = False}
-      in go rest idx' nodes
-    go (Line_URI uri:rest) idx nodes =
+      in go rest idx' unodes
+    go (Line_URI uri:rest) idx unodes =
       case file_uri idx of
         Nothing -> let -- define the URI of the file, probably
-          n = pn { node_uri = uri,
-                   node_anchor = Nothing }
-          nodes' = -- This check seems necessary but harmless.
+          n = pn { node_anchor = Nothing }
+          unodes' = -- This check seems necessary but harmless.
             if in_props_drawer idx
-            then n:nodes
-            else nodes
+            then (uri,n):unodes
+            else unodes
           idx' = idx { file_uri = Just uri }
-          in go rest idx' nodes'
+          in go rest idx' unodes'
         Just _ -> let -- define the URI of a headline, probably
-          n = pn { node_uri = uri,
-                   node_anchor = last_anchor idx }
-          nodes' = if in_props_drawer idx
-                   then n:nodes
-                   else nodes
-          in go rest idx nodes'
-    go (Line_Headline h:rest) idx nodes =
+          n = pn { node_anchor = last_anchor idx }
+          unodes' = if in_props_drawer idx
+                    then (uri,n):unodes
+                    else unodes
+          in go rest idx unodes'
+    go (Line_Headline h:rest) idx unodes =
       let idx' = updateIndexer h idx
-      in go rest idx' nodes
-    go (Line_Title _:rest) idx nodes =
-      go rest idx nodes
-    go (Line_Body _:rest) idx nodes =
-      go rest idx nodes
+      in go rest idx' unodes
+    go (Line_Title _:rest) idx unodes =
+      go rest idx unodes
+    go (Line_Body _:rest) idx unodes =
+      go rest idx unodes
 
   in reverse $ go the_lines initialIndexer []
 

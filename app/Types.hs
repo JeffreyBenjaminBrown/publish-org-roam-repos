@@ -34,7 +34,6 @@ data Repo = Repo {
   } deriving (Show, Eq)
 
 data Node = Node {
-  node_uri  :: URI,
   node_repo :: Repo,
   node_file :: FilePath, -- ^ relative
   node_anchor :: Maybe Anchor
