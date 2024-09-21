@@ -10,18 +10,19 @@ import Types
 
 
 {- | PITFALL: This ignores the possibility of parse errors. That's safe, because if the node exists, the file was already parsed earlier. -}
-rewrite_file :: Index -> Node -> IO ()
+rewrite_file :: Index -> Node
+  -> IO (FilePath, [Line]) -- ^ output just for debugging
 rewrite_file idx node = do
-  let repo = node_repo node
+  let repo :: Repo = node_repo node
   the_lines :: [Line] <-
     either (const undefined) id <$>
     parseFile ( combine (repo_local_source repo)
                 $ node_file node )
-  let outfile = rewrite_file_pure idx the_lines
-      dest = ( combine (repo_local_destination repo)
-               $ node_file node )
+  let outfile :: String = rewrite_file_pure idx the_lines
+      dest :: FilePath = combine (repo_local_destination repo)
+                         $ node_file node
   writeFile dest outfile
-
+  return (dest,the_lines)
 
 -- * INTERNAL
 -- The rest of this is used only above and in tests.

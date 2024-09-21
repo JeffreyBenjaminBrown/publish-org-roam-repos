@@ -26,7 +26,7 @@ type Parser = Parsec Void String
 
 linkParser :: Parser NormalText
 linkParser = do
-  _    <- string "[[:id:"
+  _    <- string "[[id:"
   uri  <- many $ anySingleBut ']'
   _    <- string "]["
   name <- many $ anySingleBut ']'

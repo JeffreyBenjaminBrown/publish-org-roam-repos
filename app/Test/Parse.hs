@@ -25,7 +25,7 @@ allTests = TestList
 
 test_linkParser :: Test
 test_linkParser = TestCase $ do
-  assertBool "" $ parse linkParser "" "[[:id:1][hello]]"
+  assertBool "" $ parse linkParser "" "[[id:1][hello]]"
     == Right (NormalText_link $ Link  "1" "hello")
 
 test_ordinaryTextParser :: Test
@@ -36,7 +36,7 @@ test_ordinaryTextParser = TestCase $ do
 test_lineContentParser :: Test
 test_lineContentParser = TestCase $ do
   assertBool "" $ parse lineContentParser ""
-    "word [[:id:some-id][some link text]] later words"
+    "word [[id:some-id][some link text]] later words"
     == Right [ NormalText_text "word "
              , NormalText_link $ Link  "some-id" "some link text"
              , NormalText_text " later words" ]
