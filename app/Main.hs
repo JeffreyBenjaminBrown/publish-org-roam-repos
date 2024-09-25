@@ -36,4 +36,7 @@ main = do
   let whole_files :: [Node] -- as opposed to headlines
       whole_files = filter (isNothing . node_anchor) $ M.elems idx
   mapM_ (rewrite_file idx) $ whole_files
+  print $ case errs of
+            [] -> "Org-roam export: Seems to have worked."
+            _  -> "Org-roam export: May have failed."
   return (errs,idx)
