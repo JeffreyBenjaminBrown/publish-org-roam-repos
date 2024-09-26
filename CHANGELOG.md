@@ -1,4 +1,4 @@
-# Revision history for org-to-linked-md
+# Revision history for org-roam-to-org-git
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
