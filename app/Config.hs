@@ -6,6 +6,7 @@ import           System.FilePath ((</>)) -- to join paths
 import Types
 
 
+-- | Only used for tests.
 this_repo :: FilePath
 this_repo = "/home/jeff/code/org-roam-to-org-git"
 
