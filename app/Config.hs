@@ -34,8 +34,8 @@ repos = M.fromList
              offlinePrefix_source </> "pers"
            , repo_local_destination =
              offlinePrefix_destination </> "pers"
-           , repo_online_destination =
-             onlinePrefix </> "secret-org" } )
+           , repo_online_destination = onlinePrefix </>
+             "secret_org_with_github-navigable_links" } )
 
   , ( "public"
     , Repo { repo_local_source  =
@@ -43,7 +43,8 @@ repos = M.fromList
            , repo_local_destination =
              offlinePrefix_destination </> "tech"
            , repo_online_destination =
-             onlinePrefix </> "public-notes-in-org-roam-format" } )
+             onlinePrefix </>
+             "public_notes_with_github-navigable_links" } )
 
   , ( "observatorio",
       Repo { repo_local_source  =
@@ -51,7 +52,8 @@ repos = M.fromList
            , repo_local_destination =
              offlinePrefix_destination </> "ofiscal"
            , repo_online_destination =
-             onlinePrefix </> "ofiscal/knowledge-graph" } )
+             onlinePrefix </>
+             "knowledge_graph_with_github-navigable_links" } )
 
   , ( "stale",
       Repo { repo_local_source  =
@@ -59,4 +61,5 @@ repos = M.fromList
            , repo_local_destination =
              offlinePrefix_destination </> "stale"
            , repo_online_destination =
-             onlinePrefix </> "stale-notes-from-org-roam.git" } ) ]
+             onlinePrefix </>
+             "stale_notes_with_github-navigable_links" } ) ]
