@@ -31,17 +31,17 @@ repos :: M.Map String Repo
 repos = M.fromList
   [ ( "personal"
     , Repo { repo_local_source  =
-             offlinePrefix_source </> "pers"
+             offlinePrefix_source </> "personal"
            , repo_local_destination =
-             offlinePrefix_destination </> "pers"
+             offlinePrefix_destination </> "personal"
            , repo_online_destination = onlinePrefix </>
              "secret_org_with_github-navigable_links" } )
 
   , ( "public"
     , Repo { repo_local_source  =
-             offlinePrefix_source </> "tech"
+             offlinePrefix_source </> "public"
            , repo_local_destination =
-             offlinePrefix_destination </> "tech"
+             offlinePrefix_destination </> "public"
            , repo_online_destination =
              onlinePrefix </>
              "public_notes_with_github-navigable_links" } )
@@ -55,11 +55,11 @@ repos = M.fromList
              onlinePrefix </>
              "knowledge_graph_with_github-navigable_links" } )
 
-  , ( "stale",
+  , ( "deciduous",
       Repo { repo_local_source  =
-             offlinePrefix_source </> "stale"
+             offlinePrefix_source </> "deciduous"
            , repo_local_destination =
-             offlinePrefix_destination </> "stale"
+             offlinePrefix_destination </> "deciduous"
            , repo_online_destination =
              onlinePrefix </>
              "stale_notes_with_github-navigable_links" } ) ]
