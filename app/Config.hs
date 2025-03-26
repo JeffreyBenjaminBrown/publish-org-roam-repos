@@ -55,6 +55,15 @@ repos = M.fromList
              onlinePrefix </>
              "knowledge_graph_with_github-navigable_links" } )
 
+  , ( "mincit",
+      Repo { repo_local_source  =
+             offlinePrefix_source </> "mincit"
+           , repo_local_destination =
+             offlinePrefix_destination </> "mincit"
+           , repo_online_destination =
+             onlinePrefix </>
+             "mincit-notes-with-github-navigable-links" } )
+
   , ( "deciduous",
       Repo { repo_local_source  =
              offlinePrefix_source </> "deciduous"
