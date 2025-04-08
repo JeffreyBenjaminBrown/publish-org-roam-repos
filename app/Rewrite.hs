@@ -3,7 +3,9 @@ module Rewrite where
 
 import qualified Data.List as L
 import qualified Data.Map as M
-import           System.FilePath (combine) -- ^ concatentate paths
+import           System.Directory (createDirectoryIfMissing)
+import           System.FilePath (combine, -- ^ concatentate paths
+                                  takeDirectory)
 
 import Parse (parseFile)
 import Types
@@ -21,8 +23,11 @@ rewrite_file idx node = do
   let outfile :: String = rewrite_file_pure idx the_lines
       dest :: FilePath = combine (repo_local_destination repo)
                          $ node_file node
+
+  createDirectoryIfMissing True $ takeDirectory dest
   writeFile dest outfile
   return (dest,the_lines)
+
 
 -- * INTERNAL
 -- The rest of this is used only above and in tests.

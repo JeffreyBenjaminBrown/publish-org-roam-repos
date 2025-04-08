@@ -5,8 +5,6 @@ import Data.Void
 import Text.Megaparsec (ParseErrorBundle)
 
 
--- * In use
-
 type LineNumber = Int
 
 type Anchor = String {- ^ In a URL like https://github.com/user/repo/blob/main/file.org#abc, the part after the # is the "anchor". It might be absent. -}
